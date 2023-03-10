@@ -4,6 +4,8 @@ import { Inter } from '@next/font/google'
 import styles from '@src/styles/Home.module.css'
 import { Header } from '@src/components/Header'
 import styled from "styled-components";
+import { Main } from '@src/components/Main';
+
 
 export default function Home() {
   return (
@@ -14,13 +16,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+
       <div className="">
+
         <div className="">
           <Header />
         </div>
-        <div className="">
-          main
-        </div>
+
+        <Main />
+
       </div>
     </>
   )
