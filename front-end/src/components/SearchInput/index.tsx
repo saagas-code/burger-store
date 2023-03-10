@@ -1,10 +1,13 @@
+import { Button } from "../Button"
 
 
 
 export const SearchInput = () => {
   return (
     <div className="">
-      Search
+      <Button>
+        Pesquisar
+      </Button>
     </div>
   )
 }
