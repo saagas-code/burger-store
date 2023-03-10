@@ -15,8 +15,7 @@ export const Container = styled.div<Container>`
   justify-content: center;
   align-items: center;
   color: white;
-  margin-right: 100px;
-
+  
   &:hover {
     background-color: #93D7AF;
     cursor: pointer;

@@ -10,7 +10,7 @@ interface Props {
 
 export const Button = ({children, lg}: Props) => {
   return (
-    <Container Size={lg ? '60px' : '40px'}>
+    <Container Size={lg ? '40px' : '35px'}>
       {children}
     </Container>
   )
