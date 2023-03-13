@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ICategoryRepository } from 'src/modules/products/database/implements/ICategoryRepository';
-import { Category } from './../../products/entities/Category';
+import { Category } from '../../entities/Category';
 
 
 @Injectable()
@@ -9,10 +9,9 @@ export class ListCategoryUseCase {
     private categoryRepository: ICategoryRepository
   ) {}
 
-  async execute(): Promise<string> {
-    //const users = this.categoryRepository.list();
-    //return users;
-    return 'teste'
+  async execute(): Promise<Category[]> {
+    const categories = this.categoryRepository.list();
+    return categories;
   }
 
 }
