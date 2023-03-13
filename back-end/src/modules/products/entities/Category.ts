@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 
 
 export class Category {
-  id: String;
+  id: string;
   name: string;
   created_at: Date;
 

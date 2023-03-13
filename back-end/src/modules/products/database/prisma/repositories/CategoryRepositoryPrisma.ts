@@ -4,17 +4,29 @@ import { Injectable } from "@nestjs/common";
 import { Category } from "src/modules/products/entities/Category";
 import { Product } from "src/modules/products/entities/Product";
 import { ICategoryRepository } from "../../implements/ICategoryRepository";
+import { PrismaService } from 'src/instances/prisma.service';
 
 @Injectable()
 export class CategoryRepositoryPrisma implements ICategoryRepository {
+  constructor(
+    private prisma: PrismaService
+  ) {}
+
   async list(): Promise<Category[]> {
-    throw new Error("Method not implemented.");
+    const result = await this.prisma.category.findMany()
+    return result
   }
   async create(data: Category): Promise<void> {
-    throw new Error("Method not implemented.");
+    await this.prisma.category.create({
+      data: data
+    })
   }
-  async deleteById(id: Number): Promise<void> {
-    throw new Error("Method not implemented.");
+  async deleteById(id: string): Promise<void> {
+    await this.prisma.category.delete({
+      where: {
+        id
+      }
+    })
   }
 
 }
