@@ -1,15 +1,19 @@
+import { randomUUID } from "crypto";
 
 
 
 
 export class Product {
-  id: Number;
+  id: string;
   name: string;
-  price: Number;
+  price: number;
   created_at: Date;
-  category_at: Number;
+  category_id: string;
 
   constructor() {
+    if (!this.id) {
+      this.id = randomUUID();
+    }
     
   }
 }

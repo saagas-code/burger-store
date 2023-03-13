@@ -11,19 +11,19 @@ datasource db {
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
+  id         String   @id
   name       String   @unique
   price      Float
   created_at DateTime @default(now())
 
   category    Category @relation(fields: [category_id], references: [id])
-  category_id Int
+  category_id String
 
   @@map("products")
 }
 
 model Category {
-  id         Int       @id @default(autoincrement())
+  id         String    @id
   name       String    @unique
   created_at DateTime
   Product    Product[]

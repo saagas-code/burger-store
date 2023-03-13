@@ -1,7 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
 
 
-@Controller("/category")
+@Controller("/categories")
 
 export class ListCategoryController {
   // constructor(

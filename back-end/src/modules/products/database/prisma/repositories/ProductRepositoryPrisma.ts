@@ -1,24 +1,47 @@
 import { Injectable } from "@nestjs/common";
+import { PrismaService } from "src/instances/prisma.service";
 import { Product } from "src/modules/products/entities/Product";
 import { IProductRepository } from "../../implements/IProductRepository";
 
 
 @Injectable()
 export class ProductRepositoryPrisma implements IProductRepository {
+  constructor(
+    private prisma: PrismaService
+  ) {}
+
   async list(): Promise<Product[]> {
-    throw new Error("Method not implemented.");
+    const result = await this.prisma.product.findMany();
+    return result;
   }
-  async create(data: Partial<Product>): Promise<void> {
-    throw new Error("Method not implemented.");
+  async create(data: Product): Promise<void> {
+    await this.prisma.product.create({
+      data: data
+    })
+    return
   }
   async findByName(product: string): Promise<Product> {
-    throw new Error("Method not implemented.");
+    const result = await this.prisma.product.findUnique({
+      where: {
+        name: product
+      }
+    })
+    return result
   }
-  async update(data: Partial<Product>, id: Number): Promise<void> {
-    throw new Error("Method not implemented.");
+  async update(data: Partial<Product>, id: string): Promise<void> {
+    await this.prisma.product.update({
+      where: {
+        id
+      },
+      data: data
+    })
   }
-  async deleteById(id: Number): Promise<void> {
-    throw new Error("Method not implemented.");
+  async deleteById(id: string): Promise<void> {
+    await this.prisma.product.delete({
+      where: {
+        id
+      }
+    })
   }
   
 }
