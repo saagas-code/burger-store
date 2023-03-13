@@ -11,7 +11,11 @@ export class ProductRepositoryPrisma implements IProductRepository {
   ) {}
 
   async list(): Promise<Product[]> {
-    const result = await this.prisma.product.findMany();
+    const result = await this.prisma.product.findMany({
+      include: {
+        category: true
+      }
+    });
     return result;
   }
   async create(data: Product): Promise<void> {
