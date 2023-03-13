@@ -1,13 +1,16 @@
 import { Button } from "../Button"
 import { Container, Input } from "./style"
 
+export interface Props {
+  setSearch: (x: string) => void;
+}
 
+export const SearchInput = ({setSearch}: Props) => {
 
-export const SearchInput = () => {
   return (
     <div className="">
       <Container>
-        <Input placeholder="O que você procura?">
+        <Input onChange={(e) => setSearch(e.target.value)} placeholder="O que você procura?">
 
         </Input>
         <Button>

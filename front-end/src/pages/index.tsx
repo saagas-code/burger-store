@@ -5,9 +5,13 @@ import styles from '@src/styles/Home.module.css'
 import { Header } from '@src/components/Header'
 import styled from "styled-components";
 import { Main } from '@src/components/Main';
+import { useState } from 'react';
 
 
 export default function Home() {
+
+  const [search, setSearch] = useState('');
+
   return (
     <>
       <Head>
@@ -20,10 +24,8 @@ export default function Home() {
 
       <div className="">
 
-        <div className="">
-          <Header />
-        </div>
-
+        
+        <Header setSearch={setSearch} />
         <Main />
 
       </div>

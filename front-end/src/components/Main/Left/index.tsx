@@ -34,7 +34,7 @@ export const Left = () => {
   return (
     <Container className="">
       {list.map((i, k) => (
-        <Card>
+        <Card key={k}>
           <CardHeader>
            <CardImage src={i.image} />
           </CardHeader>

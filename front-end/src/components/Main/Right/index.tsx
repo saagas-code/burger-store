@@ -56,7 +56,7 @@ export const Right = () => {
         <>
           <Cart>
             {data.map((i, k) => (
-              <CartItem>
+              <CartItem key={k}>
                 <CartItemImage>
                   <Image src={"./images/4.svg"} />
                 </CartItemImage>
