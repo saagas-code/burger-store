@@ -15,7 +15,6 @@ export class DeleteCategoryUseCase {
 
   async execute(id: string): Promise<Category[]> {
 
-    console.log('testee', id)
     const CategoryExists = await this.categoryRepository.findById(id)
     if(!CategoryExists) {
       throw new CategoryNotExists()

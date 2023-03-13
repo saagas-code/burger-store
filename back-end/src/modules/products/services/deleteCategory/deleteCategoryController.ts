@@ -11,7 +11,6 @@ export class DeleteCategoryController {
 
   @Delete("/")
   async handle(@Param('id') param: string): Promise<void> {
-    console.log('testee', param)
     await this.deleteCategoryUseCase.execute(param)
     return
   }

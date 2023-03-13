@@ -7,6 +7,8 @@ import { CreateCategoryController } from './services/createCategory/createCatego
 import { CreateCategoryUseCase } from './services/createCategory/createCategoryUseCase';
 import { DeleteCategoryController } from './services/deleteCategory/deleteCategoryController';
 import { DeleteCategoryUseCase } from './services/deleteCategory/deleteCategoryUseCase';
+import { CreateProductController } from './services/createProduct/createProductController';
+import { CreateProductUseCase } from './services/createProduct/createProductUseCase';
 
 @Module({
   imports: [
@@ -15,12 +17,14 @@ import { DeleteCategoryUseCase } from './services/deleteCategory/deleteCategoryU
   controllers: [
     ListCategoryController,
     CreateCategoryController,
-    DeleteCategoryController
+    DeleteCategoryController,
+    CreateProductController
   ],
   providers: [
     ListCategoryUseCase,
     CreateCategoryUseCase,
-    DeleteCategoryUseCase
+    DeleteCategoryUseCase,
+    CreateProductUseCase
   ],
   exports: []
   
