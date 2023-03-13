@@ -1,4 +1,5 @@
 import { Controller, Get } from "@nestjs/common";
+import { Category } from "../../entities/Category";
 import { ListCategoryUseCase } from "./listCategoryUseCase";
 
 
@@ -10,7 +11,7 @@ export class ListCategoryController {
   ) {}
 
   @Get("/")
-  async handle() {
+  async handle(): Promise<Category[]> {
     const list = await this.listCategoryUseCase.execute()
     return list;
   }

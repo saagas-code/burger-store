@@ -11,8 +11,8 @@ export class CreateCategoryController {
   ) {}
 
   @Post("/")
-  async handle(@Body() body: CreateUserDTO) {
-    const result = await this.createCategoryUseCase.execute(body)
-    return result;
+  async handle(@Body() body: CreateUserDTO): Promise<void> {
+    await this.createCategoryUseCase.execute(body)
+    return
   }
 }

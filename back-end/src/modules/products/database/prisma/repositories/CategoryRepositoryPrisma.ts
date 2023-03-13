@@ -29,6 +29,16 @@ export class CategoryRepositoryPrisma implements ICategoryRepository {
     })
     return category
   }
+
+  async findById(id: string): Promise<Category> {
+    const category = this.prisma.category.findUnique({
+      where: {
+        id
+      }
+    })
+    return category
+  }
+
   async deleteById(id: string): Promise<void> {
     await this.prisma.category.delete({
       where: {
