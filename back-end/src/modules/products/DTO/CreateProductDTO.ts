@@ -13,5 +13,8 @@ export class CreateProductDTO {
   price: number;
 
   @IsString()
+  image: string;
+
+  @IsString()
   category_id: string;
 }

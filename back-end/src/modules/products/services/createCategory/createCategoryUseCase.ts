@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ICategoryRepository } from 'src/modules/products/database/implements/ICategoryRepository';
-import { CreateUserDTO } from '../../DTO/CreateUserDTO';
+import { CreateCategoryDTO } from '../../DTO/CreateCategoryDTO';
 import { Category } from '../../entities/Category';
 import { CategoryExists } from './../../errors/CategoryExists';
 
@@ -11,7 +11,7 @@ export class CreateCategoryUseCase {
     private categoryRepository: ICategoryRepository
   ) {}
 
-  async execute({name}: CreateUserDTO): Promise<Category[]> {
+  async execute({name}: CreateCategoryDTO): Promise<Category[]> {
 
     const categoryExists = await this.categoryRepository.findByName(name)
     if (categoryExists) {

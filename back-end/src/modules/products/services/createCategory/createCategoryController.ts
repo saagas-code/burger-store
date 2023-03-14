@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from "@nestjs/common";
-import { CreateUserDTO } from "../../DTO/CreateUserDTO";
+import { CreateCategoryDTO } from "../../DTO/CreateCategoryDTO";
 import { CreateCategoryUseCase } from './createCategoryUseCase';
 
 
@@ -11,7 +11,7 @@ export class CreateCategoryController {
   ) {}
 
   @Post("/")
-  async handle(@Body() body: CreateUserDTO): Promise<void> {
+  async handle(@Body() body: CreateCategoryDTO): Promise<void> {
     await this.createCategoryUseCase.execute(body)
     return
   }
