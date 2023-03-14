@@ -1,8 +1,8 @@
 import styled from "styled-components";
+import { Button } from '@src/components/Button';
 
 export const Container = styled.div`
   width: 500px;
-  /* margin-right: 40px; */
   display: flex;
   flex-direction: column;
 
@@ -178,3 +178,47 @@ export const RemoveAll = styled.button`
     cursor: pointer;
   }
 `
+
+
+// Modal Clear Items ------------
+
+export const ModalContainer = styled.div`
+  width: 450px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    margin-top: 20px;
+  }
+  span {
+    margin-top: 30px;
+  }
+  div {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  div button:first-child {
+    background-color: green;
+  }
+
+  button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 0;
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    opacity: .6;
+  }
+  
+`
+
+
+

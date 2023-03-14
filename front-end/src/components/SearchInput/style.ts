@@ -26,7 +26,7 @@ export const Input = styled.input`
   outline: none;
   margin-left: 10px;
   color: black;
-  z-index: 9999;
+  /* z-index: 9999; */
 `
 
 

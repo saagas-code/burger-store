@@ -17,10 +17,14 @@ import {
   H2,
   Header,
   Image,
+  ModalContainer,
   RemoveAll,
   Total,
 } from "./style";
 import { BsTrash } from "react-icons/bs";
+import { Modal } from './../../Modal/index';
+import { useState } from 'react';
+
 
 
 const data = [
@@ -51,15 +55,20 @@ const data = [
 ];
 
 export const Right = () => {
-
+  const [clearIsOpen, setClearIsOpen] = useState(false)
   
 
   const finish = () => {
-
+    alert("Compra finalizada com sucesso !")
   }
 
   const clearCart = () => {
+    alert("Carrinho limpado com sucesso!")
+    setClearIsOpen(false)
+  }
 
+  const openModal = () => {
+    setClearIsOpen(true)
   }
 
   return (
@@ -104,11 +113,23 @@ export const Right = () => {
 
         <FinishButtons>
           <FinishButton onClick={() => finish()}>Finalizar compra</FinishButton>
-          <RemoveAll onClick={() => clearCart()}>Limpar</RemoveAll>
+          <RemoveAll onClick={() => openModal()}>Limpar</RemoveAll>
         </FinishButtons>
         
       </FinishArea>
 
+      <Modal isOpen={clearIsOpen} setIsOpen={setClearIsOpen}>
+        <ModalContainer>
+          <h2>Alerta</h2>
+
+          <span>Limpar todos os itens do carrinho?</span>
+
+          <div>
+            <button onClick={clearCart}>Sim</button>
+            <button onClick={() => setClearIsOpen(false)}>Não</button>
+          </div>
+        </ModalContainer>
+      </Modal>
     </Container>
   );
 };
