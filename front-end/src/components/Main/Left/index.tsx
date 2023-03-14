@@ -1,5 +1,6 @@
 import { Button } from '@src/components/Button'
 import {Card, CardHeader, CardImage, CardInfo, Category, Container, Price, Title} from './style'
+import { Product } from './../../../interfaces/Product';
 
 const list = [
   {
@@ -29,11 +30,15 @@ const list = [
   }
 ]
 
-export const Left = () => {
+interface Props {
+  data: Product[]
+}
+
+export const Left = ({data}: Props) => {
 
   return (
     <Container className="">
-      {list.map((i, k) => (
+      {data!.map((i, k) => (
         <Card key={k}>
           <CardHeader>
            <CardImage src={i.image} />
@@ -43,7 +48,7 @@ export const Left = () => {
               {i.name}
             </Title>
             <Category>
-              {i.category}
+              {i.category.name}
             </Category>
             <Price>
               R$ {i.price}

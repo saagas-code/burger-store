@@ -1,11 +1,16 @@
 import { Left } from './Left'
 import { Right } from './Right'
 import {Container} from './style'
+import { Product } from './../../interfaces/Product';
 
-export const Main = () => {
+interface Props {
+  data: Product[]
+}
+
+export const Main = ({data}: Props) => {
   return (
     <Container className="">
-      <Left />
+      <Left data={data} />
       
       <Right />
     </Container>

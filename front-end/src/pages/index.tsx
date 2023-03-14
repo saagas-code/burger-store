@@ -5,12 +5,23 @@ import styles from '@src/styles/Home.module.css'
 import { Header } from '@src/components/Header'
 import styled from "styled-components";
 import { Main } from '@src/components/Main';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Product } from './../interfaces/Product';
+import { useQuery } from 'react-query'
+import { getProducts } from './../services/api/index';
 
 
 export default function Home() {
 
   const [search, setSearch] = useState('');
+  const {data, isLoading} = useQuery<Product[]>(["products"], 
+    () => getProducts()
+  );
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
+  
 
   return (
     <>
@@ -26,7 +37,9 @@ export default function Home() {
 
         
         <Header setSearch={setSearch} />
-        <Main />
+        {!isLoading && data &&
+          <Main data={data} />
+        }
 
       </div>
     </>

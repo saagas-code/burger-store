@@ -39,8 +39,9 @@ export const CardHeader = styled.div`
 `
 export const CardImage = styled.img`
   position: absolute;
+  width: 150px;
+  height: 150px;
 `
-
 
 export const CardInfo = styled.div`
   display: flex;

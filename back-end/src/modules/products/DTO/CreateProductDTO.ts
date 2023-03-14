@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsString, IsNumber  } from "class-validator";
+import { IsString, IsNumber, IsOptional  } from "class-validator";
 import {  } from "util";
 import { isNumberObject } from "util/types";
 
@@ -13,6 +13,7 @@ export class CreateProductDTO {
   price: number;
 
   @IsString()
+  @IsOptional()
   image: string;
 
   @IsString()
