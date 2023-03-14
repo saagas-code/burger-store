@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 365px;
-  margin-right: 40px;
+  width: 500px;
+  /* margin-right: 40px; */
   display: flex;
   flex-direction: column;
 
@@ -135,13 +135,35 @@ export const Total = styled.div`
   margin: 5px 10px;
 `
 
+export const FinishButtons = styled.div`
+  display: flex;
+  padding: 0px 10px;
+`
+
+
+
+export const FinishButton = styled.button`
+  flex: 4;
+  background-color: #E0E0E0;
+  height: 50px;
+  border: 0;
+  border-radius: 7px;
+  font-size: 17px;
+  font-weight: bold;
+  background-color: #27ae60;
+  color: white;
+
+  &:hover {
+    color: #E0E0E0;
+    cursor: pointer;
+    opacity: .8;
+  }
+`
 
 export const RemoveAll = styled.button`
-  
+  flex: 2;
   background-color: #E0E0E0;
-  width: 90%;
   height: 50px;
-  margin: 0 auto;
   border: 0;
   padding: 10px;
   border-radius: 7px;
@@ -154,6 +176,5 @@ export const RemoveAll = styled.button`
     background-color: #828282;
     color: #E0E0E0;
     cursor: pointer;
-    border: 2px solid #828282;
   }
 `

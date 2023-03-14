@@ -11,6 +11,8 @@ import {
   CartItemInfoTitle,
   Container,
   FinishArea,
+  FinishButton,
+  FinishButtons,
   H1,
   H2,
   Header,
@@ -49,6 +51,17 @@ const data = [
 ];
 
 export const Right = () => {
+
+  
+
+  const finish = () => {
+
+  }
+
+  const clearCart = () => {
+
+  }
+
   return (
     <Container className="">
       <Header>Carrinho de compras</Header>
@@ -88,7 +101,12 @@ export const Right = () => {
           <H1>Total</H1>
           <H2>R$ 21,00</H2>
         </Total>
-        <RemoveAll>Remover Todos</RemoveAll>
+
+        <FinishButtons>
+          <FinishButton onClick={() => finish()}>Finalizar compra</FinishButton>
+          <RemoveAll onClick={() => clearCart()}>Limpar</RemoveAll>
+        </FinishButtons>
+        
       </FinishArea>
 
     </Container>

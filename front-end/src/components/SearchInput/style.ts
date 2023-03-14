@@ -10,7 +10,11 @@ export const Container = styled.div`
   border-radius: 10px;
   gap: 10px;
   border: 2px solid #E0E0E0;
-  margin-right: 100px;
+  /* margin-right: 100px; */
+
+  @media (max-width: 700px) {
+    margin-right: 0px;
+  }
 
   
   

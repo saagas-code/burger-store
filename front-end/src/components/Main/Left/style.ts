@@ -7,13 +7,15 @@ export const Container = styled.div`
   gap: 20px;
   max-width: 80%;
   justify-content: flex-start;
-  padding-left: 10px;
-  margin-left: 40px;
 
   @media (max-width: 1000px) {
     max-width: 100%;
-    justify-content: center;
-    
+    overflow-x: scroll;
+  }
+
+  @media (max-width: 700px) {
+    overflow-x: auto;
+    flex-wrap: nowrap;
   }
 `
 
