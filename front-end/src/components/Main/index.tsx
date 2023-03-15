@@ -9,10 +9,11 @@ interface Props {
 
 export const Main = ({data}: Props) => {
   return (
-    <Container className="">
-      <Left data={data} />
+    <Container>
       
+      <Left/>
       <Right />
+     
     </Container>
   )
 }

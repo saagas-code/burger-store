@@ -1,27 +1,39 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @media (max-width: 1040px) {
+    max-width: 100%;
+    overflow-x: scroll;
+  }
+`
+
+export const Area = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
-  max-width: 70%;
   justify-content: flex-start;
 
-  @media (max-width: 1000px) {
-    max-width: 100%;
-    overflow-x: scroll;
-  }
 
   @media (max-width: 700px) {
     overflow-x: auto;
     flex-wrap: nowrap;
   }
+
+  @media (max-width: 1360px) {
+    /* max-width: 70%; */
+  }
+
+  
 `
 
 export const Card = styled.div`
   
-  width: 280px;
+  /* width: 280px; */
   height: 310px;
   background-color: white;
   border: 2px solid #E0E0E0;
@@ -71,3 +83,32 @@ export const Price = styled.span`
   line-height: 24px;
   color: #27AE60;
 `
+
+export const SortContainer = styled.div`
+  width: 100%;
+  margin-bottom: 10px;
+`
+
+export const CategoryArea = styled.div`
+  max-width: 200px;
+`
+
+const spinAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Loading = styled.div`
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ${spinAnimation} 1s linear infinite;
+  font-size: 40px;
+  color: gray;
+`;

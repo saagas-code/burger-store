@@ -2,13 +2,20 @@ import styled from "styled-components";
 import { Button } from '@src/components/Button';
 
 export const Container = styled.div`
-  width: 600px;
+  
+  /* width: 600px; */
   display: flex;
   flex-direction: column;
+  min-width: 350px;
+
+  @media (max-width: 1040px) {
+    min-width: 310px;
+  }
 
   @media (max-width: 1000px) {
     max-width: 100%;
     margin: 0 auto;
+    min-width: 500px;
   }
 `
 
