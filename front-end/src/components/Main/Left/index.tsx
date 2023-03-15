@@ -1,6 +1,7 @@
 import { Button } from '@src/components/Button'
 import {Card, CardHeader, CardImage, CardInfo, Category, Container, Price, Title} from './style'
 import { Product } from './../../../interfaces/Product';
+import { FirstUpper } from './../../../utils/FirstLetterUpper';
 
 const list = [
   {
@@ -45,10 +46,10 @@ export const Left = ({data}: Props) => {
           </CardHeader>
           <CardInfo>
             <Title>
-              {i.name}
+              {FirstUpper(i.name)}
             </Title>
             <Category>
-              {i.category.name}
+              {FirstUpper(i.category.name)}
             </Category>
             <Price>
               R$ {i.price}
