@@ -16,7 +16,8 @@ export class CreateProductUseCase {
   ) {}
 
   async execute({name, price, image = undefined, category_id}: CreateProductDTO): Promise<Category[]> {
-
+    name = name.toLocaleLowerCase()
+    
     const productExists = await this.productRepository.findByName(name)
     if (productExists) {
       throw new ProductExists()

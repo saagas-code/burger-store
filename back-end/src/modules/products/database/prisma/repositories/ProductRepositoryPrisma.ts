@@ -10,11 +10,22 @@ export class ProductRepositoryPrisma implements IProductRepository {
     private prisma: PrismaService
   ) {}
 
-  async list(): Promise<Product[]> {
+  async list(name?: string, category?: string): Promise<Product[]> {
+    let where: any = {}
+    
+
+    if (name) {
+      where.name = { contains: name.toLocaleLowerCase()};
+    }
+    if (category) {
+      where.category_id = category
+    }
+
     const result = await this.prisma.product.findMany({
+      where,
       include: {
         category: true
-      }
+      },
     });
     return result;
   }

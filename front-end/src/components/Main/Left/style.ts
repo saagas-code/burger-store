@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
-  max-width: 80%;
+  max-width: 70%;
   justify-content: flex-start;
 
   @media (max-width: 1000px) {

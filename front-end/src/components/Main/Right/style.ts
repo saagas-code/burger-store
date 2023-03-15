@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button } from '@src/components/Button';
 
 export const Container = styled.div`
-  width: 500px;
+  width: 600px;
   display: flex;
   flex-direction: column;
 
