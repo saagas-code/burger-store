@@ -63,12 +63,35 @@ export const Image = styled.img`
 
 export const CartItemInfo = styled.div`
   display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-left: 20px;
+  flex-direction: row;  
   gap: 5px;
-  
+  flex: 1;
+  justify-content: space-between;
 `
+
+export const CartItemInfoArea = styled.div`
+  margin-left: 10px;
+`
+
+export const CartItemQnt = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+  gap: 10px;
+`
+
+export const CartMinus = styled.div`
+  cursor: pointer;
+`
+
+export const CartQnt = styled.span`
+
+`
+export const CartPlus = styled.div`
+  cursor: pointer;
+`
+
+
 
 export const CartItemInfoTitle = styled.div`
   font-weight: 700;

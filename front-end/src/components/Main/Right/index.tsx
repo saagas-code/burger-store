@@ -6,9 +6,14 @@ import {
   CartItemDelete,
   CartItemImage,
   CartItemInfo,
+  CartItemInfoArea,
   CartItemInfoCategory,
   CartItemInfoPrice,
   CartItemInfoTitle,
+  CartItemQnt,
+  CartMinus,
+  CartPlus,
+  CartQnt,
   Container,
   FinishArea,
   FinishButton,
@@ -22,47 +27,56 @@ import {
   Total,
 } from "./style";
 import { BsTrash } from "react-icons/bs";
-import { Modal } from './../../Modal/index';
-import { useState } from 'react';
-import { useAppSelector } from './../../../redux/hooks/useAppSelector';
-import { cartItem, removeFromCart, FinishCart } from "@src/redux/reducers/Cart";
-import { FirstUpper } from './../../../utils/FirstLetterUpper';
-import { useDispatch } from 'react-redux';
-import { GetTotalPrice } from './../../../utils/GetTotalPrice';
-import { ToCurrency } from './../../../utils/ToCurrency';
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/Ai";
+import { Modal } from "./../../Modal/index";
+import { useState } from "react";
+import { useAppSelector } from "./../../../redux/hooks/useAppSelector";
+import {
+  cartItem,
+  removeFromCart,
+  FinishCart,
+  increaseQnt,
+  minusQnt,
+} from "@src/redux/reducers/Cart";
+import { FirstUpper } from "./../../../utils/FirstLetterUpper";
+import { useDispatch } from "react-redux";
+import { GetTotalPrice } from "./../../../utils/GetTotalPrice";
+import { ToCurrency } from "./../../../utils/ToCurrency";
 
 export const Right = () => {
-  const [clearIsOpen, setClearIsOpen] = useState(false)
-  const cartItems: cartItem[] = useAppSelector(state => state.cart.foodsInCart)
+  const [clearIsOpen, setClearIsOpen] = useState(false);
+  const cartItems: cartItem[] = useAppSelector(
+    (state) => state.cart.foodsInCart
+  );
   const dispatch = useDispatch();
 
   const finish = () => {
-    if(cartItems.length > 0) {
-      alert("Compra finalizada com sucesso !")
-      dispatch(FinishCart(''))
-      return
-    } 
-    alert("Não há itens no carrinho")
-  }
+    if (cartItems.length > 0) {
+      alert("Compra finalizada com sucesso !");
+      dispatch(FinishCart(""));
+      return;
+    }
+    alert("Não há itens no carrinho");
+  };
 
   const clearCart = () => {
-    dispatch(FinishCart(''))
-    alert("Carrinho limpado com sucesso!")
-    setClearIsOpen(false)
-  }
+    dispatch(FinishCart(""));
+    alert("Carrinho limpado com sucesso!");
+    setClearIsOpen(false);
+  };
 
   const openModal = () => {
-    setClearIsOpen(true)
-  }
+    setClearIsOpen(true);
+  };
 
   const removeItem = (id: string) => {
-    dispatch(removeFromCart(id))
-    
-  }
+    dispatch(removeFromCart(id));
+  };
 
   return (
     <Container className="">
       <Header>Carrinho de compras</Header>
+
       {cartItems.length > 0 && (
         <>
           <Cart>
@@ -72,10 +86,22 @@ export const Right = () => {
                   <Image src={i.image} />
                 </CartItemImage>
                 <CartItemInfo>
-                  <CartItemInfoTitle>{FirstUpper(i.name)}</CartItemInfoTitle>
-                  <CartItemInfoCategory>{i.category.name}</CartItemInfoCategory>
-                  <CartItemInfoPrice>{ToCurrency(i.price)}</CartItemInfoPrice>
-                  
+                  <CartItemInfoArea>
+                    <CartItemInfoTitle>{FirstUpper(i.name)}</CartItemInfoTitle>
+                    <CartItemInfoCategory>
+                      {i.category.name}
+                    </CartItemInfoCategory>
+                    <CartItemInfoPrice>{ToCurrency(i.price)}</CartItemInfoPrice>
+                  </CartItemInfoArea>
+                  <CartItemQnt>
+                    <CartMinus onClick={() => dispatch(minusQnt(i.id))}>
+                      <AiOutlineMinus />
+                    </CartMinus>
+                    <CartQnt>{i.qnt}</CartQnt>
+                    <CartPlus onClick={() => dispatch(increaseQnt(i.id))}>
+                      <AiOutlinePlus />
+                    </CartPlus>
+                  </CartItemQnt>
                 </CartItemInfo>
                 <CartItemDelete onClick={() => removeItem(i.id)}>
                   <BsTrash />
@@ -85,16 +111,16 @@ export const Right = () => {
           </Cart>
         </>
       )}
-      {cartItems.length == 0 &&
+      {cartItems.length == 0 && (
         <>
           <CartEmpty>
             <H1>Sua sacola está vazia</H1>
             <H2>Adicione itens</H2>
           </CartEmpty>
         </>
-      }
+      )}
       <FinishArea>
-        <Border/>
+        <Border />
 
         <Total>
           <H1>Total</H1>
@@ -105,7 +131,6 @@ export const Right = () => {
           <FinishButton onClick={() => finish()}>Finalizar compra</FinishButton>
           <RemoveAll onClick={() => openModal()}>Limpar</RemoveAll>
         </FinishButtons>
-        
       </FinishArea>
 
       <Modal isOpen={clearIsOpen} setIsOpen={setClearIsOpen}>

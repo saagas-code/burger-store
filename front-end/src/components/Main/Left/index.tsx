@@ -64,7 +64,7 @@ export const Left = () => {
     }
   }, [categories]);
 
-  // Filtra os itens pela categoria escolhida
+  // atualiza os produtos dependendo das categorias
   useEffect(() => {
     if (category != "") {
       setCategoryQuery(category)
@@ -73,7 +73,7 @@ export const Left = () => {
     setCategoryQuery("")
   }, [category]);
 
-  
+
   const addToCartt = (index: number) => {
     if (products) {
       let tmpItem: any = products[index]
