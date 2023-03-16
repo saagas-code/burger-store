@@ -18,7 +18,7 @@ type PersistConfigType = {
 const persistConfig: PersistConfigType = {
     key: 'root',
     storage,
-    whitelist: ['user', 'cart']
+    whitelist: ['user']
 }
 
 const rootReducer = combineReducers({

@@ -1,29 +1,23 @@
 import { createSlice} from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
-
-type game = {
-    title: string,
-    id: number,
-    price: number
-}
-
-interface CartProduct extends game {
+export type cartItem = {
+    id: string;
+    name: string;
+    price: number;
+    image: string;
+    created_at: Date;
+    category: {
+        id: string;
+        name: string;
+    }
     qnt: number
-}
-
-export type gameCart = {
-    id: number
-    name: string
-    price: number
-    qnt: number
-    image: string
 }
 
 export const slice = createSlice({
     name: 'cart',
     initialState: {
-        foodsInCart: [] as gameCart[],
+        foodsInCart: [] as cartItem[],
     },
     reducers: {
        addToCart: (state, action) => {
@@ -55,8 +49,6 @@ export const slice = createSlice({
         }
     },
 })
-
-export const getTotalPrice = (state: RootState) => state.cart.foodsInCart.reduce((acc: number, next: { qnt: number; price: number; }) => acc += (next.qnt * next.price) ,(0 - state.cart.cupom)).toFixed(2)
 
 export const { addToCart, removeFromCart, minusQnt, increaseQnt, FinishCart } = slice.actions;
 export default slice.reducer; 

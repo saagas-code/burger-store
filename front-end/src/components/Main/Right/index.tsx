@@ -24,45 +24,29 @@ import {
 import { BsTrash } from "react-icons/bs";
 import { Modal } from './../../Modal/index';
 import { useState } from 'react';
-
-
-
-const data = [
-  {
-    image: "./images/4.svg",
-    name: "Hamburger",
-    category: "sanduiche",
-    price: 14.0,
-  },
-  {
-    image: "./images/4.svg",
-    name: "Hamburger",
-    category: "sanduiche",
-    price: 14.0,
-  },
-  {
-    image: "./images/4.svg",
-    name: "Hamburger",
-    category: "sanduiche",
-    price: 14.0,
-  },
-  {
-    image: "./images/4.svg",
-    name: "Hamburger",
-    category: "sanduiche",
-    price: 14.0,
-  },
-];
+import { useAppSelector } from './../../../redux/hooks/useAppSelector';
+import { cartItem, removeFromCart, FinishCart } from "@src/redux/reducers/Cart";
+import { FirstUpper } from './../../../utils/FirstLetterUpper';
+import { useDispatch } from 'react-redux';
+import { GetTotalPrice } from './../../../utils/GetTotalPrice';
+import { ToCurrency } from './../../../utils/ToCurrency';
 
 export const Right = () => {
   const [clearIsOpen, setClearIsOpen] = useState(false)
-  
+  const cartItems: cartItem[] = useAppSelector(state => state.cart.foodsInCart)
+  const dispatch = useDispatch();
 
   const finish = () => {
-    alert("Compra finalizada com sucesso !")
+    if(cartItems.length > 0) {
+      alert("Compra finalizada com sucesso !")
+      dispatch(FinishCart(''))
+      return
+    } 
+    alert("Não há itens no carrinho")
   }
 
   const clearCart = () => {
+    dispatch(FinishCart(''))
     alert("Carrinho limpado com sucesso!")
     setClearIsOpen(false)
   }
@@ -71,23 +55,29 @@ export const Right = () => {
     setClearIsOpen(true)
   }
 
+  const removeItem = (id: string) => {
+    dispatch(removeFromCart(id))
+    
+  }
+
   return (
     <Container className="">
       <Header>Carrinho de compras</Header>
-      {data.length > 0 && (
+      {cartItems.length > 0 && (
         <>
           <Cart>
-            {data.map((i, k) => (
+            {cartItems.map((i, k) => (
               <CartItem key={k}>
                 <CartItemImage>
-                  <Image src={"./images/4.svg"} />
+                  <Image src={i.image} />
                 </CartItemImage>
                 <CartItemInfo>
-                  <CartItemInfoTitle>X-Burger</CartItemInfoTitle>
-                  <CartItemInfoCategory>Sanduíches</CartItemInfoCategory>
-                  <CartItemInfoPrice>R$ 14,00</CartItemInfoPrice>
+                  <CartItemInfoTitle>{FirstUpper(i.name)}</CartItemInfoTitle>
+                  <CartItemInfoCategory>{i.category.name}</CartItemInfoCategory>
+                  <CartItemInfoPrice>{ToCurrency(i.price)}</CartItemInfoPrice>
+                  
                 </CartItemInfo>
-                <CartItemDelete>
+                <CartItemDelete onClick={() => removeItem(i.id)}>
                   <BsTrash />
                 </CartItemDelete>
               </CartItem>
@@ -95,7 +85,7 @@ export const Right = () => {
           </Cart>
         </>
       )}
-      {data.length == 0 &&
+      {cartItems.length == 0 &&
         <>
           <CartEmpty>
             <H1>Sua sacola está vazia</H1>
@@ -108,7 +98,7 @@ export const Right = () => {
 
         <Total>
           <H1>Total</H1>
-          <H2>R$ 21,00</H2>
+          <H2>{ToCurrency(GetTotalPrice(cartItems))}</H2>
         </Total>
 
         <FinishButtons>

@@ -5,7 +5,7 @@ interface Container {
   Size: string
 }
 
-export const Container = styled.div<Container>`
+export const Container = styled.button<Container>`
   background-color: #27AE60;
   padding: 0px 20px;
   height: ${(prop) => prop.Size};
@@ -15,6 +15,7 @@ export const Container = styled.div<Container>`
   justify-content: center;
   align-items: center;
   color: white;
+  border: 0;
   
   &:hover {
     background-color: #93D7AF;

@@ -24,6 +24,8 @@ import {
 } from "./../../../interfaces/Category";
 import { useProducts } from "./../../../hooks/useProducts";
 import { useAppSelector } from './../../../redux/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+import { addToCart, cartItem } from "@src/redux/reducers/Cart";
 
 
 
@@ -36,7 +38,8 @@ export const Left = () => {
   const [category, setCategory] = useState<string>("");
   const [options, setOptions] = useState<Option[]>(null || []);
   const searchQuery = useAppSelector(state => state.search.searchh)
-
+  const dispatch = useDispatch();
+  
   const { data: categories } = useCategory();
   const { data: products, setCategoryQuery, isLoading, setNameQuery } = useProducts();
 
@@ -70,6 +73,15 @@ export const Left = () => {
     setCategoryQuery("")
   }, [category]);
 
+  
+  const addToCartt = (index: number) => {
+    if (products) {
+      let tmpItem: any = products[index]
+      tmpItem.qnt = 1
+      dispatch(addToCart(products[index]!))
+    }
+  }
+
   return (
     <Container>
       <SortContainer>
@@ -101,7 +113,11 @@ export const Left = () => {
                     <Title>{FirstUpper(i.name)}</Title>
                     <Category>{FirstUpper(i.category.name)}</Category>
                     <Price>R$ {i.price}</Price>
-                    <Button>Adicionar</Button>
+
+                    <div onClick={() => addToCartt(k)} className="">
+                      <Button >Adicionar</Button>
+                    </div>
+
                   </CardInfo>
                 </Card>
               ))}
