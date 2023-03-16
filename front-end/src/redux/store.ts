@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { Persistor } from 'redux-persist/lib/types';
 import thunk from 'redux-thunk';
 import Cart from './reducers/Cart';
+import Search from './reducers/Search';
 
 
 
@@ -22,6 +23,7 @@ const persistConfig: PersistConfigType = {
 
 const rootReducer = combineReducers({
     cart: Cart,
+    search: Search
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

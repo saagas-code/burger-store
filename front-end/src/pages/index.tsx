@@ -1,16 +1,10 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@src/styles/Home.module.css'
 import { Header } from '@src/components/Header'
-import styled from "styled-components";
 import { Main } from '@src/components/Main';
-import { useState } from 'react';
 import { useProducts } from './../hooks/useProducts';
 
 
 export default function Home() {
-  const [search, setSearch] = useState('');
   const {data, isLoading} = useProducts()
 
   return (
@@ -26,9 +20,9 @@ export default function Home() {
       <div className="">
 
         
-        <Header setSearch={setSearch} />
+        <Header/>
         {!isLoading && data &&
-          <Main data={data} />
+          <Main />
         }
 
       </div>

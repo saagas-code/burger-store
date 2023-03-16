@@ -23,6 +23,7 @@ import {
   useCategory,
 } from "./../../../interfaces/Category";
 import { useProducts } from "./../../../hooks/useProducts";
+import { useAppSelector } from './../../../redux/hooks/useAppSelector';
 
 
 
@@ -34,10 +35,18 @@ interface Option {
 export const Left = () => {
   const [category, setCategory] = useState<string>("");
   const [options, setOptions] = useState<Option[]>(null || []);
+  const searchQuery = useAppSelector(state => state.search.searchh)
 
   const { data: categories } = useCategory();
-  const { data: products, setCategoryQuery, isLoading } = useProducts();
+  const { data: products, setCategoryQuery, isLoading, setNameQuery } = useProducts();
 
+
+  // filta pelo nome do item
+  useEffect(() => {
+    setNameQuery(searchQuery)
+  }, [searchQuery])
+
+  // Get Categories List
   useEffect(() => {
     if (categories) {
       let array = [] as Option[];
@@ -52,6 +61,7 @@ export const Left = () => {
     }
   }, [categories]);
 
+  // Filtra os itens pela categoria escolhida
   useEffect(() => {
     if (category != "") {
       setCategoryQuery(category)

@@ -2,16 +2,18 @@ import { Left } from './Left'
 import { Right } from './Right'
 import {Container} from './style'
 import { Product } from './../../interfaces/Product';
+import { useState } from 'react';
 
-interface Props {
-  data: Product[]
-}
 
-export const Main = ({data}: Props) => {
+export const Main = () => {
+  const [search, setSearch] = useState('');
+
+  
+
   return (
     <Container>
       
-      <Left/>
+      <Left />
       <Right />
      
     </Container>

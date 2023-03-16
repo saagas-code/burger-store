@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { SearchInput } from "../SearchInput";
 import { Area, Logo, Search, StyledContainer } from "./style";
+import { useProducts } from './../../hooks/useProducts';
 
-interface Props {
-  setSearch: (x: string) => void;
-}
+export const Header = () => {
+  
 
-export const Header = ({ setSearch }: Props) => {
   return (
     <StyledContainer>
       <Area>
         <Logo>Burger</Logo>
         <Search>
-          <SearchInput setSearch={setSearch} />
+          <SearchInput/>
         </Search>
       </Area>
     </StyledContainer>
