@@ -13,10 +13,10 @@ async function bootstrap() {
     transform: true
   }))
 
-  const document = JSON.parse(
-    (await readFile(join(process.cwd(), './src/swagger.json'))).toString('utf-8')
-  )
-  SwaggerModule.setup('/api', app, document);
+  // const document = JSON.parse(
+  //   (await readFile(join(process.cwd(), './src/swagger.json'))).toString('utf-8')
+  // )
+  // SwaggerModule.setup('/api', app, document);
 
   app.enableCors();
   await app.listen(process.env.APP_PORT || 3000);
