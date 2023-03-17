@@ -18,3 +18,4 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://postgres:8819@db:5432/burger
+
