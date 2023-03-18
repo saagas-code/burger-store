@@ -16,6 +16,23 @@ https://user-images.githubusercontent.com/104795182/226123046-dbe4aff9-1a1b-43f4
   </a>
 </p>
 
+<h1 align="center">🚀 Tecnologias</h1>
+
+<div align="center">
+	<table border="1">
+	<tr>
+	<td>HTML</td>
+	<td>CSS</td>
+	<td>JavaScript</td>
+	<td>React</td>
+	<td>Node</td>
+	<td>Redux toolkit</td>
+	<td>React Toastify</td>
+	<td>React Icons</td>
+	</tr>
+	</table>
+</div>
+
 <h1 align="center">Instalacão</h1>
 
 <h2 align="center">Front-End</h2>
