@@ -2,7 +2,11 @@
 
 Projetinho simples realizado com o intuito de revisar alguns conhecimentos adquiridos tanto no front quanto no back feito em React + NodeJS e banco de dados postgreSQL
 
-## video
+
+
+https://user-images.githubusercontent.com/104795182/226122847-297562eb-2855-4e1e-ba1b-4c3b412730c6.mp4
+
+
 
 <p align="center">
   <a href="https://skillicons.dev">
