@@ -42,6 +42,8 @@ import { FirstUpper } from "./../../../utils/FirstLetterUpper";
 import { useDispatch } from "react-redux";
 import { GetTotalPrice } from "./../../../utils/GetTotalPrice";
 import { ToCurrency } from "./../../../utils/ToCurrency";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Right = () => {
   const [clearIsOpen, setClearIsOpen] = useState(false);
@@ -53,22 +55,48 @@ export const Right = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTotalPrice((GetTotalPrice(cartItems)));
-  }, [cartItems])
-  
+    setTotalPrice(GetTotalPrice(cartItems));
+  }, [cartItems]);
 
   const finish = () => {
     if (cartItems.length > 0) {
-      alert("Compra finalizada com sucesso !");
       dispatch(FinishCart(""));
+      toast.success("Compra finalizada com sucesso!", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
-    alert("Não há itens no carrinho");
+    toast.error('Não há itens no carrinho', {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
   };
 
   const clearCart = () => {
     dispatch(FinishCart(""));
-    alert("Carrinho limpado com sucesso!");
+    toast.success("Carrinho limpo com sucesso!", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     setClearIsOpen(false);
   };
 
@@ -98,7 +126,9 @@ export const Right = () => {
                     <CartItemInfoCategory>
                       {i.category.name}
                     </CartItemInfoCategory>
-                    <CartItemInfoPrice>{ToCurrency(i.price * i.qnt)}</CartItemInfoPrice>
+                    <CartItemInfoPrice>
+                      {ToCurrency(i.price * i.qnt)}
+                    </CartItemInfoPrice>
                   </CartItemInfoArea>
                   <CartItemQnt>
                     <CartMinus onClick={() => dispatch(minusQnt(i.id))}>
@@ -152,6 +182,18 @@ export const Right = () => {
           </div>
         </ModalContainer>
       </Modal>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Container>
   );
 };
