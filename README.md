@@ -101,16 +101,16 @@ docker compose up
 
 ```json
 {
-		"id": "8b60c7ff-8af8-4ab6-b65b-1bf1e0abcce3",
-		"name": "testeeeeee",
-		"price": 16,
-		"image": "http://localhost:8819/6.svg",
-		"created_at": "2023-03-18T17:20:00.670Z",
-		"category_id": "f62988d9-d597-4ffe-bae1-9e2ca1be5dea",
-		"category": {
-			"id": "f62988d9-d597-4ffe-bae1-9e2ca1be5dea",
-			"name": "Sanduíches3",
-			"created_at": "2023-03-18T17:18:54.875Z"
-		}
+	"id": "8b60c7ff-8af8-4ab6-b65b-1bf1e0abcce3",
+	"name": "testeeeeee",
+	"price": 16,
+	"image": "http://localhost:8819/6.svg",
+	"created_at": "2023-03-18T17:20:00.670Z",
+	"category_id": "f62988d9-d597-4ffe-bae1-9e2ca1be5dea",
+	"category": {
+		"id": "f62988d9-d597-4ffe-bae1-9e2ca1be5dea",
+		"name": "Sanduíches3",
+		"created_at": "2023-03-18T17:18:54.875Z"
 	}
+}
 ```
