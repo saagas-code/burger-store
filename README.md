@@ -73,14 +73,14 @@ docker compose up
 
 ### Categorias
 
-| Method | Url         | Decription                | Retorno           |
+| Method | Url         | Descricão                | Retorno           |
 | ------ | ----------- | ------------------------- | ----------------- |
 | POST   | /categories | Cria uma categoria        | VOID              |
 | GET    | /categories | Lista todas as categorias | [JSON](#category) |
 
 ### Produtos
 
-| Method | Url       | Decription              | Retorno          |
+| Method | Url       | Descricão             | Retorno          |
 | ------ | --------- | ----------------------- | ---------------- |
 | POST   | /products | Cria um produto         | VOID             |
 | GET    | /products | Lista todos os produtos | [JSON](#product) |
