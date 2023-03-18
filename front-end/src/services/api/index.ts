@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const PORT = process.env.REACT_APP_PORT_BACK || 8819
+const PORT = process.env.REACT_APP_PORT_BACK || 4000
 axios.defaults.baseURL = `http://localhost:${PORT}`
 
 export const getProducts = async (category: string, name: string) => {

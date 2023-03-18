@@ -13,7 +13,7 @@ import {
   SortContainer,
   Title,
 } from "./style";
-import { AiOutlineLoading3Quarters } from 'react-icons/Ai';
+
 import { FirstUpper } from "./../../../utils/FirstLetterUpper";
 import React from "react";
 import Select from "react-select";
@@ -25,7 +25,8 @@ import {
 import { useProducts } from "./../../../hooks/useProducts";
 import { useAppSelector } from './../../../redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
-import { addToCart, cartItem } from "@src/redux/reducers/Cart";
+import { addToCart } from "@src/redux/reducers/Cart";
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 
 

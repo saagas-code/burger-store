@@ -27,7 +27,7 @@ import {
   Total,
 } from "./style";
 import { BsTrash } from "react-icons/bs";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/Ai";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { Modal } from "./../../Modal/index";
 import { useState } from "react";
 import { useAppSelector } from "./../../../redux/hooks/useAppSelector";
