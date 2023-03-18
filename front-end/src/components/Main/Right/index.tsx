@@ -29,7 +29,7 @@ import {
 import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { Modal } from "./../../Modal/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "./../../../redux/hooks/useAppSelector";
 import {
   cartItem,
@@ -45,10 +45,17 @@ import { ToCurrency } from "./../../../utils/ToCurrency";
 
 export const Right = () => {
   const [clearIsOpen, setClearIsOpen] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const cartItems: cartItem[] = useAppSelector(
     (state) => state.cart.foodsInCart
   );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTotalPrice((GetTotalPrice(cartItems)));
+  }, [cartItems])
+  
 
   const finish = () => {
     if (cartItems.length > 0) {
@@ -91,7 +98,7 @@ export const Right = () => {
                     <CartItemInfoCategory>
                       {i.category.name}
                     </CartItemInfoCategory>
-                    <CartItemInfoPrice>{ToCurrency(i.price)}</CartItemInfoPrice>
+                    <CartItemInfoPrice>{ToCurrency(i.price * i.qnt)}</CartItemInfoPrice>
                   </CartItemInfoArea>
                   <CartItemQnt>
                     <CartMinus onClick={() => dispatch(minusQnt(i.id))}>
@@ -124,7 +131,7 @@ export const Right = () => {
 
         <Total>
           <H1>Total</H1>
-          <H2>{ToCurrency(GetTotalPrice(cartItems))}</H2>
+          <H2>{ToCurrency(totalPrice)}</H2>
         </Total>
 
         <FinishButtons>
