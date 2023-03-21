@@ -43,10 +43,20 @@ model Product {
   image      String
   created_at DateTime @default(now())
 
-  category    Category @relation(fields: [category_id], references: [id])
+  category    Category    @relation(fields: [category_id], references: [id])
   category_id String
+  OrderItem   OrderItem[]
 
   @@map("products")
+}
+
+model OrderItem {
+  id         String  @id
+  quantity   Int
+  product    Product @relation(fields: [product_id], references: [id])
+  product_id String
+
+  @@map("orderItems")
 }
 
 model Category {
