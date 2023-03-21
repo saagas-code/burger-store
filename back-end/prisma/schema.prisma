@@ -55,8 +55,24 @@ model OrderItem {
   quantity   Int
   product    Product @relation(fields: [product_id], references: [id])
   product_id String
+  Order      Order[]
 
   @@map("orderItems")
+}
+
+enum ORDER_STATUS {
+  PENDING
+  PAID
+  DELIVERED
+  CANCELED
+}
+
+model Order {
+  id          String       @id
+  orderStatus ORDER_STATUS
+  items       OrderItem    @relation(fields: [items_id], references: [id])
+  items_id    String
+  created_at  DateTime     @default(now())
 }
 
 model Category {
