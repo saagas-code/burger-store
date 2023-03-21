@@ -73,6 +73,18 @@ model Order {
   items       OrderItem    @relation(fields: [items_id], references: [id])
   items_id    String
   created_at  DateTime     @default(now())
+  Payment     Payment[]
+
+  @@map("orders")
+}
+
+model Payment {
+  id         String   @id
+  order      Order    @relation(fields: [order_id], references: [id])
+  order_id   String
+  created_at DateTime @default(now())
+
+  @@map("payments")
 }
 
 model Category {
