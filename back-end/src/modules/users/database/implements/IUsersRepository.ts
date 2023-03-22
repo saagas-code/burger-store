@@ -9,4 +9,5 @@ export abstract class IUsersRepository {
   abstract list(): Promise<User[]>
   abstract findByEmail(email: string): Promise<User>;
   abstract findById(id: string): Promise<User>;
+  abstract findByIdAndDelete(id: string): Promise<void>;
 }
