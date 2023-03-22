@@ -11,20 +11,33 @@ datasource db {
 }
 
 model User {
-  id           String         @id
+  id           String         @id @default(cuid())
   name         String
   email        String
   password     String
   admin        Boolean        @default(false)
+  image        String?
   verified_at  DateTime?
   created_at   DateTime       @default(now())
   Notification Notification[]
+  Order        Order[]
+  UserToken    UserToken[]
 
   @@map("users")
 }
 
+model UserToken {
+  id            String   @id @default(cuid())
+  refresh_token String
+  user_id       String
+  user          User     @relation(fields: [user_id], references: [id])
+  created_at    DateTime @default(now())
+
+  @@map("users_tokens")
+}
+
 model Notification {
-  id      String  @id
+  id      String  @id @default(cuid())
   title   String
   message String
   read    Boolean
@@ -37,7 +50,7 @@ model Notification {
 }
 
 model Product {
-  id         String   @id
+  id         String   @id @default(cuid())
   name       String   @unique
   price      Float
   image      String
@@ -51,35 +64,36 @@ model Product {
 }
 
 model OrderItem {
-  id         String  @id
+  id         String  @id @default(cuid())
   quantity   Int
   product    Product @relation(fields: [product_id], references: [id])
   product_id String
   Order      Order[]
 
-  @@map("orderItems")
+  @@map("order_items")
 }
 
 enum ORDER_STATUS {
   PENDING
   PAID
-  DELIVERED
   CANCELED
 }
 
 model Order {
-  id          String       @id
+  id          String       @id @default(cuid())
   orderStatus ORDER_STATUS
   items       OrderItem    @relation(fields: [items_id], references: [id])
   items_id    String
   created_at  DateTime     @default(now())
+  user        User         @relation(fields: [user_id], references: [id])
+  user_id     String
   Payment     Payment[]
 
   @@map("orders")
 }
 
 model Payment {
-  id         String   @id
+  id         String   @id @default(cuid())
   order      Order    @relation(fields: [order_id], references: [id])
   order_id   String
   created_at DateTime @default(now())
@@ -88,7 +102,7 @@ model Payment {
 }
 
 model Category {
-  id         String    @id
+  id         String    @id @default(cuid())
   name       String    @unique
   created_at DateTime  @default(now())
   Product    Product[]
