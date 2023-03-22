@@ -23,7 +23,7 @@ export class CreateUserUseCase {
     }
 
     if (Object.keys(errors).length > 0) {
-      throw new HttpException(errors, 409)
+      throw new HttpException({errors}, 409)
     }
 
     const passwordHash = await hash(password, 10)
@@ -34,6 +34,4 @@ export class CreateUserUseCase {
 
     await this.userRepository.create(user)
   }
-
-
 }

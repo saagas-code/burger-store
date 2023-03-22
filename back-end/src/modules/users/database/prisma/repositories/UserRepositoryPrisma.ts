@@ -12,6 +12,11 @@ export class UserRepositoryPrisma implements IUsersRepository {
     private prisma: PrismaService
   ) {}
 
+  async list(): Promise<User[]> {
+    const user = await this.prisma.user.findMany()
+    return user;
+  }
+  
   async create(data: CreateUserDTO): Promise<void> {
     await this.prisma.user.create({
       data: data
