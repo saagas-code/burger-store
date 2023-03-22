@@ -1,8 +1,6 @@
 import { Type } from "class-transformer";
 import { IsString, IsNumber, IsOptional  } from "class-validator";
 import {  } from "util";
-import { isNumberObject } from "util/types";
-
 
 export class CreateProductDTO {
   @IsString()
