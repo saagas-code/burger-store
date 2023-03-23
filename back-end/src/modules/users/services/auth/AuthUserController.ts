@@ -12,10 +12,10 @@ export class AuthUserController {
   ) {}
 
   @Get("/")
-  async handle(@Body() body: AuthUserDTO): Promise<void> {
+  async handle(@Body() body: AuthUserDTO): Promise<string> {
     const {email, password} = body
 
-    await this.authUserUseCase.execute({
+    return await this.authUserUseCase.execute({
       email, password
     })
   }

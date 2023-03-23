@@ -29,7 +29,7 @@ export class CreateUserUseCase {
     const passwordHash = await hash(password, 10)
     const user = new User()
     Object.assign(user, {
-      name, email, password, admin, image
+      name, email, password: passwordHash, admin, image
     })
 
     await this.userRepository.create(user)
