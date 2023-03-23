@@ -13,7 +13,7 @@ export class CreateTokenDTO {
 
   @IsDate()
   @IsNotEmpty()
-  expired_date: string;
+  expired_date: Date;
 
   
 }

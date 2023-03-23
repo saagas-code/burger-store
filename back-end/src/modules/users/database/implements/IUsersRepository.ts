@@ -12,5 +12,5 @@ export abstract class IUsersRepository {
   abstract findById(id: string): Promise<User>;
   abstract findByIdAndDelete(id: string): Promise<void>;
 
-  abstract createUserToken(data: CreateTokenDTO): Promise<void>
+  abstract createUserToken(data: any): Promise<void>
 }

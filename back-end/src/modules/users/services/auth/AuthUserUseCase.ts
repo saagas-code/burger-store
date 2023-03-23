@@ -38,7 +38,12 @@ export class AuthUserUseCase {
     })
 
     const refresh_token_expires_date = this.dayjsDateProvider.addDays(30)
-    // await this.
+    
+    await this.userRepository.createUserToken({
+      user_id: user.id,
+      refresh_token,
+      expires_date: refresh_token_expires_date
+    })
 
     return {
       access_token,
