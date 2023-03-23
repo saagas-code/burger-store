@@ -23,7 +23,7 @@ export class AuthUserUseCase {
     }
 
     const token =  this.jwt.sign({user_id: user.id}, {
-      expiresIn: 3600
+      expiresIn: process.env.JWT_ACCESS_TIME
     })
 
     return token

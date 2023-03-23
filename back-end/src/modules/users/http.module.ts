@@ -19,9 +19,9 @@ import { AuthUserUseCase } from './services/auth/AuthUserUseCase';
     PassportModule.register({defaultStrategy: 'jwt'}),
     JwtModule.register({
       secret: process.env.JWT_SECRET_KEY || '8819',
-      signOptions: {
-        expiresIn: 3600
-      }
+      // signOptions: {
+      //   expiresIn: 3600
+      // }
     })
   ],
   controllers: [
