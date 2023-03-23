@@ -5,6 +5,7 @@ import { AuthUserDTO } from '../../DTO/AuthUserDTO';
 import { compare } from "bcrypt";
 import { EmailOrPassWrong } from './../../errors/EmailOrPassWrong';
 import { JwtService } from '@nestjs/jwt';
+import { IDateProvider } from 'src/shared/DateProvider/IDateProvider';
 
 interface IResponse {
   access_token: string,
@@ -15,7 +16,8 @@ interface IResponse {
 export class AuthUserUseCase {
   constructor(
     private userRepository: IUsersRepository,
-    private jwt: JwtService
+    private jwt: JwtService,
+    private dayjsDateProvider: IDateProvider
   ) {}
 
   async execute({email, password}: AuthUserDTO): Promise<IResponse> {
@@ -34,6 +36,9 @@ export class AuthUserUseCase {
     const refresh_token =  this.jwt.sign({user_id: user.id}, {
       expiresIn: process.env.JWT_REFRESH_TIME
     })
+
+    const refresh_token_expires_date = this.dayjsDateProvider.addDays(30)
+    // await this.
 
     return {
       access_token,

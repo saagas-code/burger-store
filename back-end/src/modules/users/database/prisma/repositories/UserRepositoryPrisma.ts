@@ -1,6 +1,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/instances/prisma.service';
+import { CreateTokenDTO } from 'src/modules/users/DTO/CreateTokenDTO';
 import { CreateUserDTO } from 'src/modules/users/DTO/CreateUserDTO';
 import { UpdateUserDTO } from 'src/modules/users/DTO/UpdateUserDTO';
 import { User } from 'src/modules/users/entities/User';
@@ -11,7 +12,7 @@ export class UserRepositoryPrisma implements IUsersRepository {
   constructor(
     private prisma: PrismaService
   ) {}
-
+  
   async list(): Promise<User[]> {
     const user = await this.prisma.user.findMany()
     return user;
@@ -52,6 +53,12 @@ export class UserRepositoryPrisma implements IUsersRepository {
       where: {
         id: user_id
       }
+    })
+  }
+
+  async createUserToken(data: any): Promise<void> {
+    await this.prisma.userToken.create({
+      data: data
     })
   }
   

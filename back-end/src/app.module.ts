@@ -5,6 +5,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { UserDatabaseModule } from './modules/users/database.module';
 import { UserHttpModule } from './modules/users/http.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -12,6 +13,8 @@ import { UserHttpModule } from './modules/users/http.module';
     ProductHttpModule,
     UserDatabaseModule,
     UserHttpModule,
+    SharedModule,
+    
     
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),

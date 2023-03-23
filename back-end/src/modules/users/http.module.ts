@@ -12,16 +12,17 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from 'src/common/strategy/jwt.strategy';
 import { AuthUserController } from './services/auth/AuthUserController';
 import { AuthUserUseCase } from './services/auth/AuthUserUseCase';
+import { IDateProvider } from 'src/shared/DateProvider/IDateProvider';
+import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
   imports: [
     UserDatabaseModule,
+    SharedModule,
+
     PassportModule.register({defaultStrategy: 'jwt'}),
     JwtModule.register({
-      secret: process.env.JWT_SECRET_KEY || '8819',
-      // signOptions: {
-      //   expiresIn: 3600
-      // }
+      secret: process.env.JWT_SECRET_KEY || '8819'
     })
   ],
   controllers: [

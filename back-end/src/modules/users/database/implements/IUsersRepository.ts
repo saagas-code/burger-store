@@ -1,3 +1,4 @@
+import { CreateTokenDTO } from "../../DTO/CreateTokenDTO";
 import { CreateUserDTO } from "../../DTO/CreateUserDTO";
 import { UpdateUserDTO } from "../../DTO/UpdateUserDTO";
 import { User } from './../../entities/User';
@@ -10,4 +11,6 @@ export abstract class IUsersRepository {
   abstract findByEmail(email: string): Promise<User>;
   abstract findById(id: string): Promise<User>;
   abstract findByIdAndDelete(id: string): Promise<void>;
+
+  abstract createUserToken(data: CreateTokenDTO): Promise<void>
 }
