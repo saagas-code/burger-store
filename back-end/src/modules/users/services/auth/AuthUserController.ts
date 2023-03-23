@@ -4,6 +4,10 @@ import { Controller } from '@nestjs/common';
 import { AuthUserUseCase } from './AuthUserUseCase';
 import { AuthUserDTO } from '../../DTO/AuthUserDTO';
 
+interface IResponse {
+  access_token: string,
+  refresh_token: string
+}
 
 @Controller("/auth/signin")
 export class AuthUserController {
@@ -12,11 +16,13 @@ export class AuthUserController {
   ) {}
 
   @Get("/")
-  async handle(@Body() body: AuthUserDTO): Promise<string> {
+  async handle(@Body() body: AuthUserDTO): Promise<IResponse> {
     const {email, password} = body
 
-    return await this.authUserUseCase.execute({
+    const result = await this.authUserUseCase.execute({
       email, password
     })
+
+    return result
   }
 }

@@ -6,6 +6,11 @@ import { compare } from "bcrypt";
 import { EmailOrPassWrong } from './../../errors/EmailOrPassWrong';
 import { JwtService } from '@nestjs/jwt';
 
+interface IResponse {
+  access_token: string,
+  refresh_token: string
+}
+
 @Injectable()
 export class AuthUserUseCase {
   constructor(
@@ -13,7 +18,7 @@ export class AuthUserUseCase {
     private jwt: JwtService
   ) {}
 
-  async execute({email, password}: AuthUserDTO): Promise<string> {
+  async execute({email, password}: AuthUserDTO): Promise<IResponse> {
     
     const user = await this.userRepository.findByEmail(email)
 
@@ -22,11 +27,18 @@ export class AuthUserUseCase {
       throw new EmailOrPassWrong()
     }
 
-    const token =  this.jwt.sign({user_id: user.id}, {
+    const access_token =  this.jwt.sign({user_id: user.id}, {
       expiresIn: process.env.JWT_ACCESS_TIME
     })
 
-    return token
+    const refresh_token =  this.jwt.sign({user_id: user.id}, {
+      expiresIn: process.env.JWT_REFRESH_TIME
+    })
+
+    return {
+      access_token,
+      refresh_token
+    }
 
 
     
