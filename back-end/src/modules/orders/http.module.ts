@@ -5,6 +5,8 @@ import { CreateOrderController } from './services/createOrder/CreateOrderControl
 import { OrderDatabaseModule } from './database.module';
 import { ListOrderController } from './services/listOrder/ListOrderController';
 import { ListOrderUseCase } from './services/listOrder/ListOrderUseCase';
+import { ListMyOrderController } from './services/listMyOrder/ListMyOrderController';
+import { ListMyOrderUseCase } from './services/listMyOrder/ListMyOrderUseCase';
 
 
 @Module({
@@ -13,11 +15,13 @@ import { ListOrderUseCase } from './services/listOrder/ListOrderUseCase';
   ],
   controllers: [
     CreateOrderController,
-    ListOrderController
+    ListOrderController,
+    ListMyOrderController
   ],
   providers: [
     CreateOrderUseCase,
-    ListOrderUseCase
+    ListOrderUseCase,
+    ListMyOrderUseCase
   ],
   exports: []
   
