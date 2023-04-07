@@ -14,8 +14,6 @@ export class CreateOrderUseCase {
 
     const order = await this.orderRepository.createOrder(data, user_id)
 
-
-
     for(let item in data.items) {  
       await this.orderRepository.createOrderItem(data.items[item], order.id)
     }

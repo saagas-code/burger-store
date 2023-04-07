@@ -10,6 +10,11 @@ export class OrderRepositoryPrisma implements IOrderRepository {
   constructor(
     private prisma: PrismaService
   ) {}
+
+  async listOrders(): Promise<Order[]> {
+    const orders = await this.prisma.order.findMany()
+    return orders;
+  }
   
   async createOrder({orderStatus}: OrderDTO, user_id: string): Promise<Order> {
     
