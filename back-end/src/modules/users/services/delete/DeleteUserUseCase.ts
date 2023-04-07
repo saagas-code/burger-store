@@ -1,6 +1,6 @@
 
 import { Injectable } from '@nestjs/common';
-import { IUsersRepository } from '../../database/implements/IUsersRepository';
+import { IUsersRepository } from '../../database/interface/IUsersRepository';
 import { UserNotExists } from '../../errors/UserNotExists';
 import { IUserViewHTTP } from '../../views/UserViewHTTP';
 import {UserView} from '../../views/UserViewHTTP'

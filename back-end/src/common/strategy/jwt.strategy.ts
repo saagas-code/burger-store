@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PassportStrategy } from '@nestjs/passport'
 import { JwtPayload } from "jsonwebtoken";
 import { ExtractJwt, Strategy } from "passport-jwt";
-import { IUsersRepository } from "src/modules/users/database/implements/IUsersRepository";
+import { IUsersRepository } from "src/modules/users/database/interface/IUsersRepository";
 import { IUserViewHTTP, UserView } from './../../modules/users/views/UserViewHTTP';
 import { UserNotExists } from './../../modules/users/errors/UserNotExists';
 

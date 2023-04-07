@@ -1,7 +1,7 @@
 import { CreateTokenDTO } from "../../DTO/CreateTokenDTO";
 import { CreateUserDTO } from "../../DTO/CreateUserDTO";
 import { UpdateUserDTO } from "../../DTO/UpdateUserDTO";
-import { User } from './../../entities/User';
+import { User } from '../../entities/User';
 
 
 export abstract class IUsersRepository {

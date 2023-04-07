@@ -4,7 +4,7 @@ import {hash} from 'bcrypt'
 import { CreateUserDTO } from '../../DTO/CreateUserDTO';
 import { CreateUserController } from './CreateUserController';
 import { HttpException } from '@nestjs/common/exceptions';
-import { IUsersRepository } from './../../database/implements/IUsersRepository';
+import { IUsersRepository } from '../../database/interface/IUsersRepository';
 import { User } from '../../entities/User';
 
 

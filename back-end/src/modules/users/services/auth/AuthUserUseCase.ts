@@ -1,6 +1,6 @@
 
 import { Injectable } from '@nestjs/common';
-import { IUsersRepository } from '../../database/implements/IUsersRepository';
+import { IUsersRepository } from '../../database/interface/IUsersRepository';
 import { AuthUserDTO } from '../../DTO/AuthUserDTO';
 import { compare } from "bcrypt";
 import { EmailOrPassWrong } from './../../errors/EmailOrPassWrong';

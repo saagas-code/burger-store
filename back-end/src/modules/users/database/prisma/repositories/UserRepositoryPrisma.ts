@@ -5,7 +5,7 @@ import { CreateTokenDTO } from 'src/modules/users/DTO/CreateTokenDTO';
 import { CreateUserDTO } from 'src/modules/users/DTO/CreateUserDTO';
 import { UpdateUserDTO } from 'src/modules/users/DTO/UpdateUserDTO';
 import { User } from 'src/modules/users/entities/User';
-import { IUsersRepository } from './../../implements/IUsersRepository';
+import { IUsersRepository } from '../../interface/IUsersRepository';
 
 @Injectable()
 export class UserRepositoryPrisma implements IUsersRepository {
