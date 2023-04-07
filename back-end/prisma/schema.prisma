@@ -69,7 +69,8 @@ model OrderItem {
   quantity   Int
   product    Product @relation(fields: [product_id], references: [id])
   product_id String
-  Order      Order[]
+  order      Order   @relation(fields: [order_id], references: [id])
+  order_id   String
 
   @@map("order_items")
 }
@@ -83,12 +84,11 @@ enum ORDER_STATUS {
 model Order {
   id          String       @id @default(cuid())
   orderStatus ORDER_STATUS
-  items       OrderItem    @relation(fields: [items_id], references: [id])
-  items_id    String
   created_at  DateTime     @default(now())
   user        User         @relation(fields: [user_id], references: [id])
   user_id     String
   Payment     Payment[]
+  OrderItem   OrderItem[]
 
   @@map("orders")
 }

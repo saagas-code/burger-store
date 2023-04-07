@@ -7,9 +7,13 @@ import { UserDatabaseModule } from './modules/users/database.module';
 import { UserHttpModule } from './modules/users/http.module';
 import { SharedModule } from './shared/shared.module';
 import { PrismaClient } from '@prisma/client';
+import { OrderDatabaseModule } from './modules/orders/database.module';
+import { OrderHttpModule } from './modules/orders/http.module';
 
 @Module({
   imports: [
+    OrderDatabaseModule,
+    OrderHttpModule,
     ProductDatabaseModule,
     ProductHttpModule,
     UserDatabaseModule,
