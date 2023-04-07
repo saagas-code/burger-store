@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as dotenv from 'dotenv';
+import { addAdminUser } from './instances/seeders/PrismaAdminSeed';
+
+
 
 async function bootstrap() {
   dotenv.config();
@@ -12,7 +15,12 @@ async function bootstrap() {
     transform: true
   }))
 
+  
+
+
   app.enableCors();
   await app.listen(process.env.APP_PORT || 4000);
+
+  await addAdminUser();
 }
 bootstrap();

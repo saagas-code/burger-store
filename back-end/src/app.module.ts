@@ -6,6 +6,7 @@ import { join } from 'path';
 import { UserDatabaseModule } from './modules/users/database.module';
 import { UserHttpModule } from './modules/users/http.module';
 import { SharedModule } from './shared/shared.module';
+import { PrismaClient } from '@prisma/client';
 
 @Module({
   imports: [
@@ -20,5 +21,18 @@ import { SharedModule } from './shared/shared.module';
       rootPath: join(__dirname, '..', 'public'),
     }),
   ],
+
+  providers: [
+    {
+      provide: PrismaClient,
+      useFactory: () => {
+        const prisma = new PrismaClient({
+          log: ["query"],
+        })
+        prisma.$connect();
+        return prisma;
+      }
+    }
+  ]
 })
 export class AppModule {}
