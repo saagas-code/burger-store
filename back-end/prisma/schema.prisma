@@ -59,7 +59,7 @@ model Product {
 
   category    Category    @relation(fields: [category_id], references: [id])
   category_id String
-  OrderItem   OrderItem[]
+  ordersItems OrderItem[]
 
   @@map("products")
 }
@@ -87,8 +87,8 @@ model Order {
   created_at  DateTime     @default(now())
   user        User         @relation(fields: [user_id], references: [id])
   user_id     String
-  Payment     Payment[]
-  OrderItem   OrderItem[]
+  payments    Payment[]
+  items       OrderItem[]
 
   @@map("orders")
 }
