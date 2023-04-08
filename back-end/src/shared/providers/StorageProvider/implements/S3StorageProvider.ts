@@ -15,11 +15,11 @@ export class S3StorageProvider implements IStorageProvider {
     })
   }
 
-  async save(fileBuffer: Buffer, fileName: string): Promise<string> {
+  async save(file: Express.Multer.File): Promise<string> {
     const upload = await this.client.upload({
       Bucket: process.env.AWS_BUCKET_NAME,
-      Body: fileBuffer,
-      Key: `${randomUUID()}-${fileName}`
+      Body: file.buffer,
+      Key: `${randomUUID()}-${file.originalname}`
     }).promise();
 
     return upload.Location

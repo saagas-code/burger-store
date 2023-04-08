@@ -12,7 +12,7 @@ export class CreateUserController {
   ) {}
 
   @Post("/")
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('image'))
   async handle(@Body() body: CreateUserDTO, @UploadedFile() file: Express.Multer.File): Promise<void> {
     await this.createUserUseCase.execute(body, file)
   }

@@ -1,5 +1,5 @@
 
 export abstract class IStorageProvider {
-  abstract save(fileBuffer: Buffer, fileName: string): Promise<string>;
+  abstract save(file: Express.Multer.File): Promise<string>;
   abstract delete(file: string, folder: string): Promise<void>;
 }
