@@ -8,29 +8,50 @@ export class NotificationRepositoryPrisma implements INotificationRepository {
   constructor(
     private prisma: PrismaService
   ) {}
-  async findById(user_id: string, notification_id: string): Promise<Notification> {
-    throw new Error("Method not implemented.");
+
+  async findById(notification_id: string): Promise<Notification> {
+    const notification = await this.prisma.notification.findFirst({
+      where: {
+        id: notification_id
+      }
+    })
+    return notification
   }
   
-  async listNotifications(): Promise<Notification[]> {
-    const notifications = this.prisma.notification.findMany()
+  async list(): Promise<Notification[]> {
+    const notifications = await this.prisma.notification.findMany()
     return notifications;
   }
 
-  async listMyNotifications(user_id: string): Promise<Notification[]> {
-    throw new Error("Method not implemented.");
+  async listMy(user_id: string): Promise<Notification[]> {
+    const notifications = await this.prisma.notification.findMany({
+      where: {
+        user_id
+      }
+    })
+    return notifications
   }
 
-  async readOneNotification(user_id: string, notification_id: any): Promise<void> {
-    throw new Error("Method not implemented.");
+  async readOne(notification_id: string): Promise<void> {
+    await this.prisma.notification.update({
+      where: {
+        id: notification_id,
+      },
+      data: {
+        read: new Date()
+      }
+    })
   }
 
-  async readAllNotifications(user_id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async readAll(user_id: string): Promise<void> {
+    await this.prisma.notification.updateMany({
+      where: {
+        user_id
+      },
+      data: {
+        read: new Date()
+      }
+    })
   }
-  
-  
-  update: any;
-  
 }
 
