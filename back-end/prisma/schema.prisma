@@ -38,11 +38,11 @@ model UserToken {
 }
 
 model Notification {
-  id      String  @id @default(cuid())
+  id      String    @id @default(cuid())
   title   String
   message String
-  read    Boolean
-  user    User    @relation(fields: [user_id], references: [id])
+  read    DateTime?
+  user    User      @relation(fields: [user_id], references: [id])
   user_id String
 
   created_at DateTime @default(now())
