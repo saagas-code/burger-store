@@ -7,6 +7,8 @@ import { ListOrderController } from './services/listOrder/ListOrderController';
 import { ListOrderUseCase } from './services/listOrder/ListOrderUseCase';
 import { ListMyOrderController } from './services/listMyOrder/ListMyOrderController';
 import { ListMyOrderUseCase } from './services/listMyOrder/ListMyOrderUseCase';
+import { DeleteOrderController } from './services/deleteOrder/DeleteOrderController';
+import { DeleteOrderUseCase } from './services/deleteOrder/DeleteOrderUseCase';
 
 
 @Module({
@@ -16,12 +18,14 @@ import { ListMyOrderUseCase } from './services/listMyOrder/ListMyOrderUseCase';
   controllers: [
     CreateOrderController,
     ListOrderController,
-    ListMyOrderController
+    ListMyOrderController,
+    DeleteOrderController
   ],
   providers: [
     CreateOrderUseCase,
     ListOrderUseCase,
-    ListMyOrderUseCase
+    ListMyOrderUseCase,
+    DeleteOrderUseCase
   ],
   exports: []
   
