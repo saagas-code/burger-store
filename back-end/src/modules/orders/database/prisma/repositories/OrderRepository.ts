@@ -11,6 +11,14 @@ export class OrderRepositoryPrisma implements IOrderRepository {
   constructor(
     private prisma: PrismaService
   ) {}
+  findById(order_id: string): Promise<Order> {
+    const order = this.prisma.order.findUnique({
+      where: {
+        id: order_id
+      }
+    })
+    return order
+  }
 
   async deleteOrder(order_id: string): Promise<void> {
     await this.prisma.order.delete({
