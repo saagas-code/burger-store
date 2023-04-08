@@ -11,6 +11,8 @@ import { OrderDatabaseModule } from './modules/orders/database.module';
 import { OrderHttpModule } from './modules/orders/http.module';
 import { MulterModule } from '@nestjs/platform-express';
 import * as multerS3 from 'multer-s3';
+import { NotificationDatabaseModule } from './modules/notifications/database.module';
+import { NotificationHttpModule } from './modules/notifications/http.module';
 
 @Module({
   imports: [
@@ -20,10 +22,9 @@ import * as multerS3 from 'multer-s3';
     ProductHttpModule,
     UserDatabaseModule,
     UserHttpModule,
+    NotificationDatabaseModule,
+    NotificationHttpModule,
     SharedModule,
-
-    // storage
-    
     
     // static files
     ServeStaticModule.forRoot({
