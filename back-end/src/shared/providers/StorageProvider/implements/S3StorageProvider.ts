@@ -1,9 +1,9 @@
 
-import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3 } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, PutObjectCommand, S3 } from "@aws-sdk/client-s3";
 import { IStorageProvider } from "../IStorageProvider";
 import { randomUUID } from "crypto";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-
+import { HttpStatus } from '@nestjs/common';
+import { HttpException } from '@nestjs/common';
 
 export class S3StorageProvider implements IStorageProvider {
   private client: S3;
@@ -39,6 +39,8 @@ export class S3StorageProvider implements IStorageProvider {
 
     } catch (err) {
       console.log("Ocorreu um erro ao salvar a imagem no STORAGE", err)
+      throw new HttpException('Ocorreu um erro ao salvar a imagem no STORAGE', HttpStatus.FORBIDDEN);
+      
     }
 
   }
@@ -53,6 +55,7 @@ export class S3StorageProvider implements IStorageProvider {
 
     } catch (err) {
       console.log("Ocorreu um erro ao tentar deletar a imagem do STORAGE", err)
+      throw new HttpException('Ocorreu um erro ao deletar a imagem no STORAGE', HttpStatus.FORBIDDEN);
     }
 
   }

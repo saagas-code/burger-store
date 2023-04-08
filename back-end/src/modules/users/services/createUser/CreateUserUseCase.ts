@@ -28,7 +28,9 @@ export class CreateUserUseCase {
       throw new HttpException({errors}, 409)
     }
     
+
     const location = await this.storageProvider.save(file)
+
     const passwordHash = await hash(password, 10)
 
     const user = new User()
