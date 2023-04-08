@@ -1,5 +1,9 @@
 import { Notification } from "../../entities/Notification";
 
+export interface NotificationOption {
+  title: string,
+  message: string
+}
 
 export abstract class INotificationRepository {
   abstract create(title: string, message: string, user_id: string): Promise<void>
