@@ -12,6 +12,14 @@ export class OrderRepositoryPrisma implements IOrderRepository {
     private prisma: PrismaService
   ) {}
 
+  async deleteOrder(order_id: string): Promise<void> {
+    await this.prisma.order.delete({
+      where: {
+        id: order_id
+      }
+    })
+  }
+
   async listOrders(): Promise<Order[]> {
     const orders = await this.prisma.order.findMany({
       include: {
