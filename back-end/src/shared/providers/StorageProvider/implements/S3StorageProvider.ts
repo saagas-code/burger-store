@@ -1,7 +1,8 @@
 
-import { S3 } from "aws-sdk";
+import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3 } from "@aws-sdk/client-s3";
 import { IStorageProvider } from "../IStorageProvider";
 import { randomUUID } from "crypto";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 
 export class S3StorageProvider implements IStorageProvider {
@@ -10,25 +11,50 @@ export class S3StorageProvider implements IStorageProvider {
   constructor() {
     this.client = new S3({
       region: process.env.AWS_BUCKET_REGION,
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      }
+      
     })
   }
 
+
   async save(file: Express.Multer.File): Promise<string> {
-    const upload = await this.client.upload({
+
+    const fileName = `${randomUUID()}-${file.originalname}`
+    const uploadComand = {
       Bucket: process.env.AWS_BUCKET_NAME,
       Body: file.buffer,
-      Key: `${randomUUID()}-${file.originalname}`
-    }).promise();
+      Key: fileName,
+      ACL: "public-read"
+    }
 
-    return upload.Location
+    try {
+      await this.client.send(new PutObjectCommand(uploadComand))
+
+      const bucketUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_BUCKET_REGION}.amazonaws.com/`
+      const url = `${bucketUrl}${fileName}`
+      return url
+
+    } catch (err) {
+      console.log("Ocorreu um erro ao salvar a imagem no STORAGE", err)
+    }
+
   }
   async delete(location: string): Promise<void> {
-    await this.client.deleteObject({
+    const deleteCommand = new DeleteObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: location
-    }).promise();
+    })
+
+    try {
+      await this.client.send(deleteCommand)
+
+    } catch (err) {
+      console.log("Ocorreu um erro ao tentar deletar a imagem do STORAGE", err)
+    }
+
   }
   
 }
