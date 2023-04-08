@@ -4,6 +4,7 @@ import { CreateUserDTO } from '../../DTO/CreateUserDTO';
 import { CreateUserUseCase } from './CreateUserUseCase';
 import { Controller } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { fileFilter } from 'src/shared/utils/fileFilter';
 
 @Controller("/users")
 export class CreateUserController {
@@ -12,7 +13,9 @@ export class CreateUserController {
   ) {}
 
   @Post("/")
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('image', {
+    fileFilter: fileFilter
+  }))
   async handle(@Body() body: CreateUserDTO, @UploadedFile() file: Express.Multer.File): Promise<void> {
     await this.createUserUseCase.execute(body, file)
   }
