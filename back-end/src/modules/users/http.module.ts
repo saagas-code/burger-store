@@ -12,7 +12,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from 'src/common/strategy/jwt.strategy';
 import { AuthUserController } from './services/auth/AuthUserController';
 import { AuthUserUseCase } from './services/auth/AuthUserUseCase';
-import { IDateProvider } from 'src/shared/DateProvider/IDateProvider';
 import { SharedModule } from 'src/shared/shared.module';
 
 @Module({

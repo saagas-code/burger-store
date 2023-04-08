@@ -1,7 +1,8 @@
 
 import { Module } from '@nestjs/common';
-import { IDateProvider } from './DateProvider/IDateProvider';
-import { DayjsDateProvider } from './DateProvider/implements/DayjsDateProvider';
+import { IDateProvider } from './providers/DateProvider/IDateProvider';
+import { DayjsDateProvider } from './providers/DateProvider/implements/DayjsDateProvider';
+
 
 @Module({
   providers: [

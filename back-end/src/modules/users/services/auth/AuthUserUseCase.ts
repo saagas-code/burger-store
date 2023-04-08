@@ -5,7 +5,8 @@ import { AuthUserDTO } from '../../DTO/AuthUserDTO';
 import { compare } from "bcrypt";
 import { EmailOrPassWrong } from './../../errors/EmailOrPassWrong';
 import { JwtService } from '@nestjs/jwt';
-import { IDateProvider } from 'src/shared/DateProvider/IDateProvider';
+import { IDateProvider } from 'src/shared/providers/DateProvider/IDateProvider';
+
 
 interface IResponse {
   access_token: string,
