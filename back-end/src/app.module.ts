@@ -9,6 +9,8 @@ import { SharedModule } from './shared/shared.module';
 import { PrismaClient } from '@prisma/client';
 import { OrderDatabaseModule } from './modules/orders/database.module';
 import { OrderHttpModule } from './modules/orders/http.module';
+import { MulterModule } from '@nestjs/platform-express';
+import * as multerS3 from 'multer-s3';
 
 @Module({
   imports: [
@@ -19,8 +21,11 @@ import { OrderHttpModule } from './modules/orders/http.module';
     UserDatabaseModule,
     UserHttpModule,
     SharedModule,
+
+    // storage
     
     
+    // static files
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
