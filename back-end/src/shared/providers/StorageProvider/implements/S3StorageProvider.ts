@@ -24,8 +24,11 @@ export class S3StorageProvider implements IStorageProvider {
 
     return upload.Location
   }
-  delete(file: string, folder: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(location: string): Promise<void> {
+    await this.client.deleteObject({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: location
+    }).promise();
   }
   
 }
