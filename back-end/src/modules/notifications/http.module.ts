@@ -4,6 +4,8 @@ import { CreateNotificationController } from './services/createNotification/Crea
 import { CreateNotificationUseCase } from './services/createNotification/CreateNotificationUseCase';
 import { UserDatabaseModule } from '../users/database.module';
 import { NotificationDatabaseModule } from './database.module';
+import { ListMyNotificationController } from './services/listMyNotification/ListMyNotificationController';
+import { ListMyNotificationUseCase } from './services/listMyNotification/ListMyNotificationUseCase';
 
 
 
@@ -14,10 +16,12 @@ import { NotificationDatabaseModule } from './database.module';
   ],
   controllers: [
     CreateNotificationController,
+    ListMyNotificationController
     
   ],
   providers: [
     CreateNotificationUseCase,
+    ListMyNotificationUseCase
     
   ],
   exports: []
