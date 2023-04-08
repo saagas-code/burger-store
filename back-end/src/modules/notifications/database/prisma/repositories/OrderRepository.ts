@@ -8,8 +8,17 @@ export class NotificationRepositoryPrisma implements INotificationRepository {
   constructor(
     private prisma: PrismaService
   ) {}
+  async create(title: string, message: string, user_id: string): Promise<void> {
+    await this.prisma.notification.create({
+      data: {
+        title,
+        message,
+        user_id
+      }
+    })
+  }
 
-  async findById(notification_id: string): Promise<Notification> {
+  async getById(notification_id: string): Promise<Notification> {
     const notification = await this.prisma.notification.findFirst({
       where: {
         id: notification_id
@@ -23,7 +32,7 @@ export class NotificationRepositoryPrisma implements INotificationRepository {
     return notifications;
   }
 
-  async listMy(user_id: string): Promise<Notification[]> {
+  async listByUserId(user_id: string): Promise<Notification[]> {
     const notifications = await this.prisma.notification.findMany({
       where: {
         user_id
@@ -32,7 +41,7 @@ export class NotificationRepositoryPrisma implements INotificationRepository {
     return notifications
   }
 
-  async readOne(notification_id: string): Promise<void> {
+  async updateOneReadById(notification_id: string): Promise<void> {
     await this.prisma.notification.update({
       where: {
         id: notification_id,
@@ -43,7 +52,7 @@ export class NotificationRepositoryPrisma implements INotificationRepository {
     })
   }
 
-  async readAll(user_id: string): Promise<void> {
+  async updateAllReadByUserId(user_id: string): Promise<void> {
     await this.prisma.notification.updateMany({
       where: {
         user_id
