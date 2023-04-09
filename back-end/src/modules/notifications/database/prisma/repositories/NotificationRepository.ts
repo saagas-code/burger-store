@@ -20,6 +20,14 @@ export class NotificationRepositoryPrisma implements INotificationRepository {
     private prisma: PrismaService
   ) {}
 
+  async delete(notification_id: any): Promise<void> {
+    await this.prisma.notification.delete({
+      where: {
+        id: notification_id
+      }
+    })
+  }
+
   async create(title: string, message: string, user_id: string): Promise<void> {
     await this.prisma.notification.create({
       data: {

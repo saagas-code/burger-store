@@ -12,5 +12,6 @@ export abstract class INotificationRepository {
   abstract listByUserId(user_id: string): Promise<Notification[]>
   abstract updateOneReadById(notification_id: string): Promise<void>
   abstract updateAllReadByUserId (user_id: string): Promise<void>
+  abstract delete (notification_id: string): Promise<void>
 
 }
