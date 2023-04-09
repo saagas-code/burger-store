@@ -5,12 +5,12 @@ import { Notification } from "src/modules/notifications/entities/Notification";
 
 export const notificationOptions: {[key: string]: NotificationOption} =  {
   welcome: {
-    title: 'Conta criada com sucesso!',
-    message: 'Seja bem vindo'
+    title: 'Bem-vindo(a) ao nosso sistema!',
+    message: 'Olá! Estamos muito felizes em tê-lo(a) conosco. Esperamos que você aproveite ao máximo todas as funcionalidades do nosso sistema e que tenha a melhor experiência possível.'
   },
   accountConfirmed: {
-    title: 'Conta confirmada com sucesso!',
-    message: 'Conta confirmada com sucesso!'
+    title: 'Confirmação de conta realizada com sucesso!',
+    message: 'Parabéns! Sua conta foi confirmada com sucesso. Agora você já pode acessar todas as funcionalidades do nosso sistema.'
   }
 }
 
