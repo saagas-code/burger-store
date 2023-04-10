@@ -17,6 +17,9 @@ import { AccessTokenStrategy } from 'src/common/strategy/AccessTokenStrategy';
 import { RefreshTokenStrategy } from 'src/common/strategy/RefreshTokenStrategy';
 import { RefreshTokenController } from './services/refreshToken/RefreshTokenController';
 import { RefreshTokenUseCase } from './services/refreshToken/RefreshTokenUseCase';
+import { ConfirmUserController } from './services/confirmUser/ConfirmUserController';
+import { ConfirmUserUseCase } from './services/confirmUser/ConfirmUserUseCase';
+import { ConfirmAccountTokenStrategy } from 'src/common/strategy/ConfirmAccountTokenStrategy';
 
 
 @Module({
@@ -33,15 +36,19 @@ import { RefreshTokenUseCase } from './services/refreshToken/RefreshTokenUseCase
     JwtModule.register({
       secret: process.env.JWT_REFRESH_SECRET_KEY || '8820'
     }),
-
+    PassportModule.register({defaultStrategy: 'confirm-token'}),
     JwtModule.register({
-      secret: process.env.JWT_SECRET_KEY,
-      signOptions: {expiresIn: process.env.JWT_ACCESS_TIME}
+      secret: process.env.JWT_CONFIRM_SECRET_KEY || '8821'
     }),
-    JwtModule.register({
-      secret: process.env.JWT_REFRESH_SECRET_KEY,
-      signOptions: {expiresIn: process.env.JWT_REFRESH_TIME}
-    })
+
+    // JwtModule.register({
+    //   secret: process.env.JWT_SECRET_KEY,
+    //   signOptions: {expiresIn: process.env.JWT_ACCESS_TIME}
+    // }),
+    // JwtModule.register({
+    //   secret: process.env.JWT_REFRESH_SECRET_KEY,
+    //   signOptions: {expiresIn: process.env.JWT_REFRESH_TIME}
+    // })
   ],
   controllers: [
     CreateUserController,
@@ -49,24 +56,28 @@ import { RefreshTokenUseCase } from './services/refreshToken/RefreshTokenUseCase
     DeleteUserController,
     AuthUserController,
     RefreshTokenController,
+    ConfirmUserController
     
   ],
   providers: [
     CreateUserUseCase,
     ListUserUseCase,
     DeleteUserUseCase,
+    ConfirmUserUseCase,
 
     AuthUserUseCase,
     RefreshTokenUseCase,
     AccessTokenStrategy,
     RefreshTokenStrategy,
+    ConfirmAccountTokenStrategy
     
     
   ],
   exports: [
     PassportModule, 
     AccessTokenStrategy,
-    RefreshTokenStrategy
+    RefreshTokenStrategy,
+    ConfirmAccountTokenStrategy
   ]
   
 })

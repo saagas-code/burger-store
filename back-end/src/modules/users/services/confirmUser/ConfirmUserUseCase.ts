@@ -1,23 +1,32 @@
 
 import { Injectable } from '@nestjs/common';
-import {hash} from 'bcrypt'
-import { CreateUserDTO } from '../../DTO/CreateUserDTO';
-import { HttpException } from '@nestjs/common/exceptions';
 import { IUsersRepository } from '../../database/interface/IUsersRepository';
-import { User } from '../../entities/User';
-import { IStorageProvider } from 'src/shared/providers/StorageProvider/IStorageProvider';
 import { INotificationRepository } from 'src/modules/notifications/database/interface/INotificationRepository';
+import { UserNotExists } from '../../errors/UserNotExists';
+import { UserAlreadyVerified } from '../../errors/UserAlreadyVerified';
 
 
 @Injectable()
 export class ConfirmUserUseCase {
   constructor(
     private userRepository: IUsersRepository,
-    private storageProvider: IStorageProvider,
     private notificationRepository: INotificationRepository
   ) {}
 
-  async execute(token: string): Promise<void> {
+  async execute(user_id: string): Promise<void> {
     
+    const user = await this.userRepository.findById(user_id);
+    if(!user) {
+      throw new UserNotExists();
+    }
+    if(user.verified_at != null) {
+      throw new UserAlreadyVerified()
+    }
+
+    const data = {
+      verified_at: new Date()
+    }
+    await this.userRepository.update(user.id, data)
+
   }
 }

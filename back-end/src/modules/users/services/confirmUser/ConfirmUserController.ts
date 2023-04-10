@@ -1,13 +1,9 @@
 
-import { Post, Body, UseInterceptors, UploadedFile, Param } from '@nestjs/common';
+import { UseGuards, Get } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { fileFilter } from 'src/shared/utils/fileFilter';
 import { ConfirmUserUseCase } from './ConfirmUserUseCase';
-
-interface IPayload {
-  token: string
-}
+import { ConfirmAccountTokenAuthGuard } from 'src/shared/guards/tokens';
+import { GetUser } from '../../decorators/user.decorator';
 
 @Controller("/users")
 export class ConfirmUserController {
@@ -15,11 +11,9 @@ export class ConfirmUserController {
     private confirmUserUseCase: ConfirmUserUseCase
   ) {}
 
-  @Post("/user/verify/:token")
-  @UseInterceptors(FileInterceptor('image', {
-    fileFilter: fileFilter
-  }))
-  async handle(@Param() param: IPayload): Promise<void> {
-    await this.confirmUserUseCase.execute(param.token)
+  @Get("/verify")
+  @UseGuards(ConfirmAccountTokenAuthGuard)
+  async handle(@GetUser() user_id: string): Promise<void> {
+    await this.confirmUserUseCase.execute(user_id)
   }
 }

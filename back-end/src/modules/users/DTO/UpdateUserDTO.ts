@@ -3,18 +3,21 @@ import { Type } from 'class-transformer';
 
 export class UpdateUserDTO {
   @IsString()
-  name: string;
+  name?: string;
 
   @IsEmail()
-  email: string
+  email?: string
 
   @IsString()
-  password: string
+  password?: string
 
   @Type(() => Number)
   @IsBoolean()
-  admin: boolean
+  admin?: boolean
   
   @IsString()
-  image: string
+  image?: string
+
+  @IsString()
+  verified_at?: Date
 }

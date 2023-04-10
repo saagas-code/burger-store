@@ -46,10 +46,11 @@ export class CreateUserUseCase {
     const newUser = await this.userRepository.create(user)
     await this.notificationRepository.create("welcome", newUser.id)
 
-    const confirm_token = this.jwt.sign({user_id: newUser.id}, {
+    const token = this.jwt.sign({user_id: newUser.id}, {
+      secret: process.env.JWT_CONFIRM_SECRET_KEY,
       expiresIn: process.env.JWT_CONFIRM_TIME
     })
 
-    console.log(confirm_token)
+    console.log(token)
   }
 }
