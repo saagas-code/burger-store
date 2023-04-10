@@ -7,7 +7,8 @@ import { IUsersRepository } from '../../database/interface/IUsersRepository';
 import { User } from '../../entities/User';
 import { IStorageProvider } from 'src/shared/providers/StorageProvider/IStorageProvider';
 import { INotificationRepository } from 'src/modules/notifications/database/interface/INotificationRepository';
-import { notificationOptions } from './../../../notifications/database/prisma/repositories/NotificationRepository';
+import { JwtService } from '@nestjs/jwt';
+import { IDateProvider } from 'src/shared/providers/DateProvider/IDateProvider';
 
 
 @Injectable()
@@ -15,7 +16,9 @@ export class CreateUserUseCase {
   constructor(
     private userRepository: IUsersRepository,
     private storageProvider: IStorageProvider,
-    private notificationRepository: INotificationRepository
+    private notificationRepository: INotificationRepository,
+    private jwt: JwtService,
+    private dayjsDateProvider: IDateProvider
   ) {}
 
   async execute({name, email, password, admin}: CreateUserDTO, file: Express.Multer.File): Promise<void> {
@@ -42,5 +45,11 @@ export class CreateUserUseCase {
 
     const newUser = await this.userRepository.create(user)
     await this.notificationRepository.create("welcome", newUser.id)
+
+    const confirm_token = this.jwt.sign({user_id: newUser.id}, {
+      expiresIn: process.env.JWT_CONFIRM_TIME
+    })
+
+    console.log(confirm_token)
   }
 }
