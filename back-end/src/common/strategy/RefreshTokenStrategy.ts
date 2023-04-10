@@ -5,10 +5,10 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 
 
 @Injectable()
-export class AccessTokenStrategy extends PassportStrategy(Strategy, 'access-token') {
+export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'refresh-token') {
   constructor() {
     super({
-      secretOrKey: process.env.JWT_SECRET_KEY,
+      secretOrKey: process.env.JWT_REFRESH_SECRET_KEY,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }

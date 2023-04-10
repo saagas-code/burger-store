@@ -5,6 +5,8 @@ import { UserRepositoryPrisma } from './database/prisma/repositories/UserReposit
 import { IUsersRepository } from './database/interface/IUsersRepository';
 import { IStorageProvider } from './../../shared/providers/StorageProvider/IStorageProvider';
 import { S3StorageProvider } from 'src/shared/providers/StorageProvider/implements/S3StorageProvider';
+import { IUsersTokenRepository } from './database/interface/IUsersTokenRepository';
+import { UserTokenRepositoryPrisma } from './database/prisma/repositories/UserTokenRepository';
 
 @Module({
   providers: [
@@ -14,12 +16,16 @@ import { S3StorageProvider } from 'src/shared/providers/StorageProvider/implemen
       useClass: UserRepositoryPrisma
     },
     {
+      provide: IUsersTokenRepository,
+      useClass: UserTokenRepositoryPrisma
+    },
+    {
       provide: IStorageProvider,
       useClass: S3StorageProvider
     }
   ],
 
-  exports: [IUsersRepository, IStorageProvider]
+  exports: [IUsersRepository, IUsersTokenRepository, IStorageProvider]
 })
 
 export class UserDatabaseModule {}

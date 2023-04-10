@@ -6,6 +6,7 @@ import { CreateUserDTO } from 'src/modules/users/DTO/CreateUserDTO';
 import { UpdateUserDTO } from 'src/modules/users/DTO/UpdateUserDTO';
 import { User } from 'src/modules/users/entities/User';
 import { IUsersRepository } from '../../interface/IUsersRepository';
+import { UserToken } from 'src/modules/users/entities/UserToken';
 
 @Injectable()
 export class UserRepositoryPrisma implements IUsersRepository {
@@ -61,6 +62,16 @@ export class UserRepositoryPrisma implements IUsersRepository {
     await this.prisma.userToken.create({
       data: data
     })
+  }
+
+  async findUserToken(token: string): Promise<UserToken> {
+    const userToken = await this.prisma.userToken.findFirst({
+      where: {
+        refresh_token: token
+      }
+    })
+
+    return userToken
   }
   
 }
