@@ -5,7 +5,7 @@ import { User } from '../../entities/User';
 
 
 export abstract class IUsersRepository {
-  abstract create(data: CreateUserDTO): Promise<void>;
+  abstract create(data: CreateUserDTO): Promise<User>;
   abstract update(user_id: string, data: UpdateUserDTO): Promise<void>;
   abstract list(): Promise<User[]>
   abstract findByEmail(email: string): Promise<User>;

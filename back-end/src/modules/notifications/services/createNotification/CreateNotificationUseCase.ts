@@ -19,7 +19,7 @@ export class CreateNotificationUseCase {
       throw new UserNotExists();
     }
 
-    await this.notificationRepository.create(title, message, user_id)
+    await this.notificationRepository.createByAdmin(title, message, user_id)
 
     return
   }

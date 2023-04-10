@@ -2,18 +2,20 @@
 import { Injectable } from '@nestjs/common';
 import {hash} from 'bcrypt'
 import { CreateUserDTO } from '../../DTO/CreateUserDTO';
-import { CreateUserController } from './CreateUserController';
 import { HttpException } from '@nestjs/common/exceptions';
 import { IUsersRepository } from '../../database/interface/IUsersRepository';
 import { User } from '../../entities/User';
 import { IStorageProvider } from 'src/shared/providers/StorageProvider/IStorageProvider';
+import { INotificationRepository } from 'src/modules/notifications/database/interface/INotificationRepository';
+import { notificationOptions } from './../../../notifications/database/prisma/repositories/NotificationRepository';
 
 
 @Injectable()
 export class CreateUserUseCase {
   constructor(
     private userRepository: IUsersRepository,
-    private storageProvider: IStorageProvider
+    private storageProvider: IStorageProvider,
+    private notificationRepository: INotificationRepository
   ) {}
 
   async execute({name, email, password, admin}: CreateUserDTO, file: Express.Multer.File): Promise<void> {
@@ -38,6 +40,7 @@ export class CreateUserUseCase {
       name, email, password: passwordHash, admin, image: location
     })
 
-    await this.userRepository.create(user)
+    const newUser = await this.userRepository.create(user)
+    await this.notificationRepository.create("welcome", newUser.id)
   }
 }

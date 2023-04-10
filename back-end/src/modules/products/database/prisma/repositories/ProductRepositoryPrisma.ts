@@ -19,7 +19,6 @@ export class ProductRepositoryPrisma implements IProductRepository {
     if (category) {
       where.category_id = category
     }
-
     const result = await this.prisma.product.findMany({
       where,
       include: {

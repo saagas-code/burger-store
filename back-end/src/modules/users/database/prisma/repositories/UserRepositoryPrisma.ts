@@ -18,10 +18,11 @@ export class UserRepositoryPrisma implements IUsersRepository {
     return user;
   }
   
-  async create(data: CreateUserDTO): Promise<void> {
-    await this.prisma.user.create({
+  async create(data: CreateUserDTO): Promise<User> {
+    const user = await this.prisma.user.create({
       data: data
     })
+    return user
   }
   async update(user_id: string, data: UpdateUserDTO): Promise<void> {
     await this.prisma.user.update({

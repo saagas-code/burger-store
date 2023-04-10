@@ -13,10 +13,12 @@ import { JwtStrategy } from 'src/common/strategy/jwt.strategy';
 import { AuthUserController } from './services/auth/AuthUserController';
 import { AuthUserUseCase } from './services/auth/AuthUserUseCase';
 import { SharedModule } from 'src/shared/shared.module';
+import { NotificationDatabaseModule } from '../notifications/database.module';
 
 @Module({
   imports: [
     UserDatabaseModule,
+    NotificationDatabaseModule,
     SharedModule,
 
     PassportModule.register({defaultStrategy: 'jwt'}),

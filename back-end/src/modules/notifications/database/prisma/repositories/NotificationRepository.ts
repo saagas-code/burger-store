@@ -1,9 +1,19 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/instances/prisma.service";
-import { INotificationRepository, NotificationOption } from "../../interface/INotificationRepository";
-import { Notification } from "src/modules/notifications/entities/Notification";
+import { INotificationRepository } from "../../interface/INotificationRepository";
+import { Notification } from 'src/modules/notifications/entities/Notification';
 
-export const notificationOptions: {[key: string]: NotificationOption} =  {
+export type NotificationKey = 'welcome' | 'accountConfirmed';
+
+type NotificationStructure = {
+  title: string;
+  message: string;
+}
+type NotificationOptions = {
+  [key in NotificationKey]: NotificationStructure
+}
+
+export const notificationOptions: NotificationOptions = {
   welcome: {
     title: 'Bem-vindo(a) ao nosso sistema!',
     message: 'Olá! Estamos muito felizes em tê-lo(a) conosco. Esperamos que você aproveite ao máximo todas as funcionalidades do nosso sistema e que tenha a melhor experiência possível.'
@@ -19,21 +29,33 @@ export class NotificationRepositoryPrisma implements INotificationRepository {
   constructor(
     private prisma: PrismaService
   ) {}
+  
+  async create(notificationType: NotificationKey, user_id: string): Promise<void> {
+    const notificationOption = notificationOptions[notificationType]
 
-  async delete(notification_id: any): Promise<void> {
-    await this.prisma.notification.delete({
-      where: {
-        id: notification_id
+    await this.prisma.notification.create({
+      data: {
+        title: notificationOption.title,
+        message: notificationOption.message,
+        user_id
       }
     })
   }
 
-  async create(title: string, message: string, user_id: string): Promise<void> {
+  async createByAdmin(title: string, message: string, user_id: any): Promise<void> {
     await this.prisma.notification.create({
       data: {
         title,
         message,
         user_id
+      }
+    })
+  }
+
+  async delete(notification_id: any): Promise<void> {
+    await this.prisma.notification.delete({
+      where: {
+        id: notification_id
       }
     })
   }
