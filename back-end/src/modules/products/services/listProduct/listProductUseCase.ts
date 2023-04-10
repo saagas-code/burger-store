@@ -15,14 +15,14 @@ export class ListProductUseCase {
   ) {}
 
   async execute({name, category}: IRequest): Promise<Product[]> {
-    // let queries = {} as any
+    let queries = [] as any
   
-    // if(name) {
-    //   queries.push(name)
-    // }
-    // if(category) {
-    //   queries.push(category)
-    // }
+    if(name) {
+      queries.push(name)
+    }
+    if(category) {
+      queries.push(category)
+    }
 
     const products = this.productRepository.list(name, category);
 

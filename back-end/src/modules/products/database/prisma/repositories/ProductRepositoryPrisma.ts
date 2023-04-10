@@ -13,7 +13,6 @@ export class ProductRepositoryPrisma implements IProductRepository {
   async list(name?: string, category?: string): Promise<Product[]> {
     let where: any = {}
     
-
     if (name) {
       where.name = { contains: name.toLocaleLowerCase()};
     }
