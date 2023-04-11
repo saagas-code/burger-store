@@ -13,14 +13,14 @@ import { AuthUserController } from './services/auth/AuthUserController';
 import { AuthUserUseCase } from './services/auth/AuthUserUseCase';
 import { SharedModule } from 'src/shared/shared.module';
 import { NotificationDatabaseModule } from '../notifications/database.module';
-import { AccessTokenStrategy } from 'src/common/strategy/AccessTokenStrategy';
-import { RefreshTokenStrategy } from 'src/common/strategy/RefreshTokenStrategy';
+import { AccessTokenStrategy } from 'src/shared/strategy/AccessTokenStrategy';
+import { RefreshTokenStrategy } from 'src/shared/strategy/RefreshTokenStrategy';
+import { ConfirmAccountTokenStrategy } from 'src/shared/strategy/ConfirmAccountTokenStrategy';
+
 import { RefreshTokenController } from './services/refreshToken/RefreshTokenController';
 import { RefreshTokenUseCase } from './services/refreshToken/RefreshTokenUseCase';
 import { ConfirmUserController } from './services/confirmUser/ConfirmUserController';
 import { ConfirmUserUseCase } from './services/confirmUser/ConfirmUserUseCase';
-import { ConfirmAccountTokenStrategy } from 'src/common/strategy/ConfirmAccountTokenStrategy';
-
 
 @Module({
   imports: [
@@ -69,7 +69,7 @@ import { ConfirmAccountTokenStrategy } from 'src/common/strategy/ConfirmAccountT
     RefreshTokenUseCase,
     AccessTokenStrategy,
     RefreshTokenStrategy,
-    ConfirmAccountTokenStrategy
+    ConfirmAccountTokenStrategy,
     
     
   ],
@@ -77,7 +77,7 @@ import { ConfirmAccountTokenStrategy } from 'src/common/strategy/ConfirmAccountT
     PassportModule, 
     AccessTokenStrategy,
     RefreshTokenStrategy,
-    ConfirmAccountTokenStrategy
+    ConfirmAccountTokenStrategy,
   ]
   
 })

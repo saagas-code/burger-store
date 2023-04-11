@@ -1,7 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
-import { JwtPayload } from "jsonwebtoken";
+import { JwtPayload, TokenExpiredError } from "jsonwebtoken";
 import { ExtractJwt, Strategy } from "passport-jwt";
+import { UserNotExists } from "src/modules/users/errors/UserNotExists";
 
 
 @Injectable()
@@ -17,5 +18,6 @@ export class ConfirmAccountTokenStrategy extends PassportStrategy(Strategy, 'con
     const {user_id} = payload
 
     return user_id
+    
   }
 }

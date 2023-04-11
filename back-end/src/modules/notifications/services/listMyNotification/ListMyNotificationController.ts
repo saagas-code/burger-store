@@ -2,9 +2,10 @@ import { Controller, UseGuards, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ensureAdmin } from 'src/shared/guards/ensureAdmin';
 import { ListMyNotificationUseCase } from './ListMyNotificationUseCase';
-import { GetUser } from 'src/common/decorators/user.decorator';
+import { GetUser } from 'src/shared/decorators/user.decorator';
 import { IUserViewHTTP } from 'src/modules/users/views/UserViewHTTP';
 import { Notification } from '../../entities/Notification';
+
 
 @Controller("/notifications")
 @UseGuards(AuthGuard("jwt"))

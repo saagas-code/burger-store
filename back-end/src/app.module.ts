@@ -9,10 +9,9 @@ import { SharedModule } from './shared/shared.module';
 import { PrismaClient } from '@prisma/client';
 import { OrderDatabaseModule } from './modules/orders/database.module';
 import { OrderHttpModule } from './modules/orders/http.module';
-import { MulterModule } from '@nestjs/platform-express';
-import * as multerS3 from 'multer-s3';
 import { NotificationDatabaseModule } from './modules/notifications/database.module';
 import { NotificationHttpModule } from './modules/notifications/http.module';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
