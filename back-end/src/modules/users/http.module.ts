@@ -21,6 +21,8 @@ import { RefreshTokenController } from './services/refreshToken/RefreshTokenCont
 import { RefreshTokenUseCase } from './services/refreshToken/RefreshTokenUseCase';
 import { ConfirmUserController } from './services/confirmUser/ConfirmUserController';
 import { ConfirmUserUseCase } from './services/confirmUser/ConfirmUserUseCase';
+import { CreateConfirmTokenUseCase } from './services/createConfirmToken/CreateConfirmUserUseCase';
+import { CreateConfirmTokenController } from './services/createConfirmToken/CreateConfirmUserController';
 
 @Module({
   imports: [
@@ -56,17 +58,19 @@ import { ConfirmUserUseCase } from './services/confirmUser/ConfirmUserUseCase';
     DeleteUserController,
     AuthUserController,
     RefreshTokenController,
-    ConfirmUserController
-    
+    ConfirmUserController,
+    CreateConfirmTokenController,
   ],
   providers: [
     CreateUserUseCase,
     ListUserUseCase,
     DeleteUserUseCase,
     ConfirmUserUseCase,
+    CreateConfirmTokenUseCase,
 
     AuthUserUseCase,
     RefreshTokenUseCase,
+
     AccessTokenStrategy,
     RefreshTokenStrategy,
     ConfirmAccountTokenStrategy,
