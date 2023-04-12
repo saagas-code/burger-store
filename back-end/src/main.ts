@@ -16,9 +16,6 @@ async function bootstrap() {
     transform: true
   }))
 
-  
-
-
   app.enableCors();
   await app.listen(process.env.APP_PORT || 4000);
 

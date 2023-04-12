@@ -19,9 +19,10 @@ export class AuthUserController {
   async handle(@Body() body: AuthUserDTO): Promise<IResponse> {
     const {email, password} = body
 
-    const result = await this.authUserUseCase.execute({
-      email, password
-    })
+    console.log(body)
+    const result = await this.authUserUseCase.execute(
+      body
+    )
 
     return result
   }

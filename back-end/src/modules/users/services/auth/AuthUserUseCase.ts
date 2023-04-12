@@ -7,6 +7,7 @@ import { EmailOrPassWrong } from './../../errors/EmailOrPassWrong';
 import { JwtService } from '@nestjs/jwt';
 import { IDateProvider } from 'src/shared/providers/DateProvider/IDateProvider';
 import { IUsersTokenRepository } from '../../database/interface/IUsersTokenRepository';
+import { UserNotExists } from '../../errors/UserNotExists';
 
 
 interface IResponse {
@@ -25,7 +26,12 @@ export class AuthUserUseCase {
 
   async execute({email, password}: AuthUserDTO): Promise<IResponse> {
     
+
     const user = await this.userRepository.findByEmail(email)
+
+    if(!user) {
+      throw new EmailOrPassWrong()
+    }
 
     const passwordMatch = await compare(password, user.password)
     if(!passwordMatch) {

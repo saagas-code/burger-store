@@ -1,5 +1,5 @@
 
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import {hash} from 'bcrypt'
 import { CreateUserDTO } from '../../DTO/CreateUserDTO';
 import { HttpException } from '@nestjs/common/exceptions';
@@ -8,7 +8,7 @@ import { User } from '../../entities/User';
 import { IStorageProvider } from 'src/shared/providers/StorageProvider/IStorageProvider';
 import { INotificationRepository } from 'src/modules/notifications/database/interface/INotificationRepository';
 import { JwtService } from '@nestjs/jwt';
-import { IDateProvider } from 'src/shared/providers/DateProvider/IDateProvider';
+import { IQueueProvider } from 'src/shared/providers/QueueProvider/IQueueProvider';
 
 
 @Injectable()
@@ -18,12 +18,15 @@ export class CreateUserUseCase {
     private storageProvider: IStorageProvider,
     private notificationRepository: INotificationRepository,
     private jwt: JwtService,
-    private dayjsDateProvider: IDateProvider
+    private queueProvider: IQueueProvider
   ) {}
 
   async execute({name, email, password, admin}: CreateUserDTO, file: Express.Multer.File): Promise<void> {
     const errors: any = {}
 
+    //await this.queueProvider.send(process.env.RABBIT_QUEUE_NAME, 'test')
+
+    //return
     const emailExists = await this.userRepository.findByEmail(email)
     if(emailExists) {
       errors.email = 'Email já existente';

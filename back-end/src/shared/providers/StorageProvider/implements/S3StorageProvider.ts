@@ -19,7 +19,6 @@ export class S3StorageProvider implements IStorageProvider {
     })
   }
 
-
   async save(file: Express.Multer.File): Promise<string> {
 
     const fileName = `${randomUUID()}-${file.originalname}`

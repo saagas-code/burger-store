@@ -11,7 +11,7 @@ import { OrderDatabaseModule } from './modules/orders/database.module';
 import { OrderHttpModule } from './modules/orders/http.module';
 import { NotificationDatabaseModule } from './modules/notifications/database.module';
 import { NotificationHttpModule } from './modules/notifications/http.module';
-import { APP_FILTER } from '@nestjs/core';
+import { RabbitService } from './instances/rabbitMQ.service';
 
 @Module({
   imports: [
@@ -41,7 +41,15 @@ import { APP_FILTER } from '@nestjs/core';
         prisma.$connect();
         return prisma;
       }
-    }
+
+    },
+    {
+      provide: RabbitService,
+      useFactory: async () => {
+        const rabbitMQService = new RabbitService()
+        return rabbitMQService;
+      }
+    },
   ]
 })
 export class AppModule {}
