@@ -9,11 +9,16 @@ export class RabbitProvider implements IQueueProvider {
     private rabbit: RabbitService,
   ) {}
 
-  async send(queueName: string, message: string): Promise<void> {
+  async publishInQueue(queueName: string, message: string): Promise<void> {
     console.log("teste")
     await this.rabbit.getChannel().assertQueue(queueName);
     await this.rabbit.getChannel().sendToQueue(queueName, Buffer.from(message));
   }
+
+  async publishInExchange(exchange: string, routingKey: string, message: string): Promise<boolean> {
+    return await this.rabbit.getChannel().publish(exchange, routingKey, Buffer.from(message))
+  }
+
   async receive(queueName: string): Promise<void> {
     await this.rabbit.getChannel().assertQueue(queueName);
     await this.rabbit.getChannel().consume(queueName, (msg: Message) => {

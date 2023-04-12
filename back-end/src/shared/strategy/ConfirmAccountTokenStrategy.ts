@@ -15,9 +15,7 @@ export class ConfirmAccountTokenStrategy extends PassportStrategy(Strategy, 'con
   }
 
   async validate(payload: JwtPayload) {
-    const {user_id} = payload
-
-    return user_id
+    return payload
     
   }
 }

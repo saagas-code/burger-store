@@ -14,8 +14,6 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'refresh-to
   }
 
   async validate(payload: JwtPayload) {
-    const {user_id} = payload
-
-    return user_id
+    return payload
   }
 }
