@@ -14,8 +14,6 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'access-toke
   }
 
   async validate(payload: JwtPayload) {
-    const {user_id} = payload
-
-    return user_id
+    return payload
   }
 }

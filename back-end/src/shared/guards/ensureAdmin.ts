@@ -11,9 +11,7 @@ export class ensureAdmin implements CanActivate  {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> {
     const req = context.switchToHttp().getRequest();
     const user = req.user
-    
-    console.log('testeeee', user)
-    return
+
     if(user.admin) {
       return true
     }

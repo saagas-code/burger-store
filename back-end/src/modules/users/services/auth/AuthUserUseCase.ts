@@ -38,7 +38,10 @@ export class AuthUserUseCase {
       throw new EmailOrPassWrong()
     }
 
-    const access_token =  this.jwt.sign({user_id: user.id}, {
+    const access_token =  this.jwt.sign({
+      user_id: user.id, 
+      admin: user.admin
+    }, {
       secret: process.env.JWT_SECRET_KEY,
       expiresIn: process.env.JWT_ACCESS_TIME
     })

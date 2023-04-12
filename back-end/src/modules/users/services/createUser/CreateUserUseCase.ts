@@ -24,9 +24,6 @@ export class CreateUserUseCase {
   async execute({name, email, password, admin}: CreateUserDTO, file: Express.Multer.File): Promise<void> {
     const errors: any = {}
 
-    //await this.queueProvider.send(process.env.RABBIT_QUEUE_NAME, 'test')
-
-    //return
     const emailExists = await this.userRepository.findByEmail(email)
     if(emailExists) {
       errors.email = 'Email já existente';

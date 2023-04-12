@@ -7,13 +7,13 @@ import { ensureAdmin } from 'src/shared/guards/ensureAdmin';
 
 
 @Controller("/users")
+@UseGuards(AccessTokenAuthGuard)
 export class ListUserController {
   constructor(
     private listUserUseCase: ListUserUseCase
   ) {}
 
   @Get("/")
-  @UseGuards(AccessTokenAuthGuard)
   @UseGuards(ensureAdmin)
   async handle(): Promise<IUserViewHTTP[]> {
     const result = await this.listUserUseCase.execute()
