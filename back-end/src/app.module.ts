@@ -11,10 +11,12 @@ import { OrderDatabaseModule } from './modules/orders/database.module';
 import { OrderHttpModule } from './modules/orders/http.module';
 import { NotificationDatabaseModule } from './modules/notifications/database.module';
 import { NotificationHttpModule } from './modules/notifications/http.module';
-import { RabbitService } from './instances/rabbitMQ.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import { IEmailProvider } from './shared/providers/EmailProvider/IEmailProvider';
 import { NodemailerProvider } from './shared/providers/EmailProvider/implements/NodemailerProvider';
+import { BullModule } from '@nestjs/bull';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { SendMailProducerService } from './shared/providers/JobsProvider/Services/sendMailProducerService';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -32,6 +34,10 @@ import { NodemailerProvider } from './shared/providers/EmailProvider/implements/
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
+
+    //Bulll
+
+    
 
   ],
 

@@ -8,6 +8,8 @@ import { User } from '../../entities/User';
 import { IStorageProvider } from 'src/shared/providers/StorageProvider/IStorageProvider';
 import { INotificationRepository } from 'src/modules/notifications/database/interface/INotificationRepository';
 import { JwtService } from '@nestjs/jwt';
+import { IEmailProvider } from 'src/shared/providers/EmailProvider/IEmailProvider';
+import { IJobMailProvider } from 'src/shared/providers/JobsProvider/IJobMailProvider';
 
 
 @Injectable()
@@ -17,6 +19,7 @@ export class CreateUserUseCase {
     private storageProvider: IStorageProvider,
     private notificationRepository: INotificationRepository,
     private jwt: JwtService,
+    private emailProvider: IJobMailProvider
   ) {}
 
 
@@ -32,7 +35,6 @@ export class CreateUserUseCase {
       throw new HttpException({errors}, 409)
     }
     
-
     const location = await this.storageProvider.save(file)
 
     const passwordHash = await hash(password, 10)
@@ -44,12 +46,13 @@ export class CreateUserUseCase {
 
     const newUser = await this.userRepository.create(user)
     await this.notificationRepository.create("welcome", newUser.id)
+    await this.emailProvider.accountCreated(user.email)
 
     const token = this.jwt.sign({user_id: newUser.id}, {
       secret: process.env.JWT_CONFIRM_SECRET_KEY,
       expiresIn: process.env.JWT_CONFIRM_TIME
     })
 
-    console.log(token)
+    console.log("Token de confirmacao: WARNING: CRIAR FUNCIONALIDADE")
   }
 }
