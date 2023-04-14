@@ -7,14 +7,12 @@ import { IStorageProvider } from './../../shared/providers/StorageProvider/IStor
 import { S3StorageProvider } from 'src/shared/providers/StorageProvider/implements/S3StorageProvider';
 import { IUsersTokenRepository } from './database/interface/IUsersTokenRepository';
 import { UserTokenRepositoryPrisma } from './database/prisma/repositories/UserTokenRepository';
-import { IQueueProvider } from 'src/shared/providers/QueueProvider/IQueueProvider';
-import { RabbitProvider } from 'src/shared/providers/QueueProvider/implements/RabbitProvider';
-import { RabbitService } from 'src/instances/rabbitMQ.service';
+import { IEmailProvider } from 'src/shared/providers/EmailProvider/IEmailProvider';
+import { NodemailerProvider } from 'src/shared/providers/EmailProvider/implements/NodemailerProvider';
 
 @Module({
   providers: [
     PrismaService,
-    RabbitService,
     {
       provide: IUsersRepository,
       useClass: UserRepositoryPrisma
@@ -28,12 +26,13 @@ import { RabbitService } from 'src/instances/rabbitMQ.service';
       useClass: S3StorageProvider
     },
     {
-      provide: IQueueProvider,
-      useClass: RabbitProvider
+      provide: IEmailProvider,
+      useClass: NodemailerProvider
     }
+
   ],
 
-  exports: [IUsersRepository, IUsersTokenRepository, IStorageProvider, IQueueProvider]
+  exports: [IUsersRepository, IUsersTokenRepository, IStorageProvider, IEmailProvider]
 })
 
 export class UserDatabaseModule {}

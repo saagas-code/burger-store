@@ -1,6 +1,6 @@
 
-export abstract class IQueueProvider {
-  abstract publishInQueue(queueName: string, message: string): Promise<void>;
-  abstract publishInExchange(exchange: string, routingKey: string, message: string): Promise<boolean>;
-  abstract receive(queueName: string): Promise<void>;
-}
+// export abstract class IQueueProvider {
+//   abstract publishInQueue(queueName: string, message: string, topic: string): Promise<void>;
+//   abstract publishInExchange(exchange: string, routingKey: string, message: string): Promise<boolean>;
+//   abstract consume(queueName: string): Promise<void>;
+// }

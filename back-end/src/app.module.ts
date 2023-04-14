@@ -12,6 +12,9 @@ import { OrderHttpModule } from './modules/orders/http.module';
 import { NotificationDatabaseModule } from './modules/notifications/database.module';
 import { NotificationHttpModule } from './modules/notifications/http.module';
 import { RabbitService } from './instances/rabbitMQ.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { IEmailProvider } from './shared/providers/EmailProvider/IEmailProvider';
+import { NodemailerProvider } from './shared/providers/EmailProvider/implements/NodemailerProvider';
 
 @Module({
   imports: [
@@ -29,6 +32,7 @@ import { RabbitService } from './instances/rabbitMQ.service';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
+
   ],
 
   providers: [
@@ -41,15 +45,11 @@ import { RabbitService } from './instances/rabbitMQ.service';
         prisma.$connect();
         return prisma;
       }
-
     },
     {
-      provide: RabbitService,
-      useFactory: async () => {
-        const rabbitMQService = new RabbitService()
-        return rabbitMQService;
-      }
-    },
+      provide: IEmailProvider,
+      useClass: NodemailerProvider
+    }
   ]
 })
 export class AppModule {}

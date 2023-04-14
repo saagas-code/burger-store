@@ -1,31 +1,44 @@
-import { Injectable } from "@nestjs/common";
-import { IQueueProvider } from "../IQueueProvider";
-import { Message } from 'amqplib';
-import { RabbitService } from "src/instances/rabbitMQ.service";
+// import { Injectable } from "@nestjs/common";
+// import { IQueueProvider } from "../IQueueProvider";
+// import { Message } from 'amqplib';
+// import { RabbitService } from "src/instances/rabbitMQ.service";
 
-@Injectable()
-export class RabbitProvider implements IQueueProvider {
-  constructor(
-    private rabbit: RabbitService,
-  ) {}
+// @Injectable()
+// export class RabbitProvider implements IQueueProvider {
+//   constructor(
+//     private rabbit: RabbitService,
+//   ) {}
 
-  async publishInQueue(queueName: string, message: string): Promise<void> {
-    console.log("teste")
-    await this.rabbit.getChannel().assertQueue(queueName);
-    await this.rabbit.getChannel().sendToQueue(queueName, Buffer.from(message));
-  }
+//   async publishInQueue(queueName: string, message: string, topic: string): Promise<void> {
+//     await this.rabbit.getChannel().assertQueue(queueName);
 
-  async publishInExchange(exchange: string, routingKey: string, message: string): Promise<boolean> {
-    return await this.rabbit.getChannel().publish(exchange, routingKey, Buffer.from(message))
-  }
+//     const payload = Buffer.from(JSON.stringify({
+//       pattern: queueName,
+//       data: message
+//     }))
 
-  async receive(queueName: string): Promise<void> {
-    await this.rabbit.getChannel().assertQueue(queueName);
-    await this.rabbit.getChannel().consume(queueName, (msg: Message) => {
-      if (msg !== null) {
-        console.log(msg.content.toString());
-      }
-    });
-  }
+//     await this.rabbit.getChannel().sendToQueue(queueName, payload, {
+//       headers: {
+//         topic: topic
+//       }
+//     })
+
+//     // await this.rabbit.getChannel().sendToQueue(queueName, Buffer.from(message), {
+//     //   headers: {
+//     //     topic: topic
+//     //   }
+//     // });
+//   }
+
+//   async publishInExchange(exchange: string, routingKey: string, message: string): Promise<boolean> {
+//     return await this.rabbit.getChannel().publish(exchange, routingKey, Buffer.from(message))
+//   }
+// s
+//   async consume(queueName: string): Promise<void> {
+//     // await this.rabbit.getChannel().assertQueue(queueName);
+//     await this.rabbit.getChannel().consume(queueName, (message: Message) => {
+//       this.rabbit.getChannel().ack(message);
+//     });
+//   }
   
-}
+// }

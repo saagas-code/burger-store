@@ -12,6 +12,7 @@ export class ListUserUseCase {
   ) {}
 
   async execute(): Promise<IUserViewHTTP[]> {
+
     const users = await this.userRepository.list();
     return users.map(UserView.toHTTP)
   }

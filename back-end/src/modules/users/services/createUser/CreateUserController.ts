@@ -9,13 +9,14 @@ import { fileFilter } from 'src/shared/utils/fileFilter';
 @Controller("/users")
 export class CreateUserController {
   constructor(
-    private createUserUseCase: CreateUserUseCase
+    private createUserUseCase: CreateUserUseCase,
   ) {}
 
   @Post("/")
   @UseInterceptors(FileInterceptor('image', {
     fileFilter: fileFilter
   }))
+
   async handle(@Body() body: CreateUserDTO, @UploadedFile() file: Express.Multer.File): Promise<void> {
     await this.createUserUseCase.execute(body, file)
   }

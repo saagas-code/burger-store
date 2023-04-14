@@ -8,7 +8,6 @@ import { User } from '../../entities/User';
 import { IStorageProvider } from 'src/shared/providers/StorageProvider/IStorageProvider';
 import { INotificationRepository } from 'src/modules/notifications/database/interface/INotificationRepository';
 import { JwtService } from '@nestjs/jwt';
-import { IQueueProvider } from 'src/shared/providers/QueueProvider/IQueueProvider';
 
 
 @Injectable()
@@ -18,8 +17,8 @@ export class CreateUserUseCase {
     private storageProvider: IStorageProvider,
     private notificationRepository: INotificationRepository,
     private jwt: JwtService,
-    private queueProvider: IQueueProvider
   ) {}
+
 
   async execute({name, email, password, admin}: CreateUserDTO, file: Express.Multer.File): Promise<void> {
     const errors: any = {}

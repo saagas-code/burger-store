@@ -23,7 +23,6 @@ import { ConfirmUserController } from './services/confirmUser/ConfirmUserControl
 import { ConfirmUserUseCase } from './services/confirmUser/ConfirmUserUseCase';
 import { CreateConfirmTokenUseCase } from './services/createConfirmToken/CreateConfirmUserUseCase';
 import { CreateConfirmTokenController } from './services/createConfirmToken/CreateConfirmUserController';
-import { RabbitProvider } from 'src/shared/providers/QueueProvider/implements/RabbitProvider';
 
 @Module({
   imports: [
