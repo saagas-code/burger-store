@@ -17,12 +17,15 @@ export class NodemailerProvider implements IEmailProvider {
     })
   }
 
-  async send(to: string): Promise<void> {
+  async accountCreated(to: string, token: string): Promise<void> {
     console.log("inicializing")
+
+    const link = `${process.env.FRONT_END_URL}/token=${token}`
 
     const html = `
       <h1 align="center">Conta criada com sucesso !</h1> </br>
       <h2 align="center">Agora para você ter acesso a todas funcionalidades do sistem você precisará confirmar sua conta, Clique <a>AQUI</a> !</h2> </br>
+      <a href="${link}/token=${link}">${link}</a>
     `
 
     await this.transporter.sendMail({

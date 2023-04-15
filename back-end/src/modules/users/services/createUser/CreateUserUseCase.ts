@@ -46,12 +46,14 @@ export class CreateUserUseCase {
 
     const newUser = await this.userRepository.create(user)
     await this.notificationRepository.create("welcome", newUser.id)
-    await this.emailProvider.accountCreated(user.email)
+    
 
     const token = this.jwt.sign({user_id: newUser.id}, {
       secret: process.env.JWT_CONFIRM_SECRET_KEY,
       expiresIn: process.env.JWT_CONFIRM_TIME
     })
+
+    await this.emailProvider.accountCreatedJob(user.email, token)
 
     console.log("Token de confirmacao: WARNING: CRIAR FUNCIONALIDADE")
   }

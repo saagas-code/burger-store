@@ -1,5 +1,5 @@
 
 
 export abstract class IJobMailProvider {
-  abstract accountCreated(emailTo: string): Promise<void>;
+  abstract accountCreatedJob(emailTo: string, token: string): Promise<void>;
 }

@@ -9,8 +9,8 @@ export class MailProvider implements IJobMailProvider {
     @InjectQueue('sendMail') private queue: Queue
   ) {}
 
-  async accountCreated(emailTo: string): Promise<void> {
-    await this.queue.add("accountCreated", emailTo)
+  async accountCreatedJob(emailTo: string, token: string): Promise<void> {
+    await this.queue.add("accountCreated", {emailTo, token})
   }
   
 }

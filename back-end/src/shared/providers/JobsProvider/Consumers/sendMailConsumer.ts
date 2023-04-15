@@ -2,6 +2,11 @@ import { Process, Processor } from "@nestjs/bull";
 import { Job } from "bull";
 import { IEmailProvider } from "src/shared/providers/EmailProvider/IEmailProvider";
 
+interface IPayload {
+  emailTo: string,
+  token: string
+}
+
 @Processor('sendMail')
 export class SendMailConsumer {
   constructor(
@@ -9,9 +14,8 @@ export class SendMailConsumer {
   ) {}
 
   @Process("accountCreated")
-  async sendMail(job: Job<any>) {
-    const {data} = job;
-    console.log("FILAAAAAAAA")
-    await this.emailProvider.send(data)
+  async sendMail(job: Job<IPayload>) {
+    const {emailTo, token} = job.data;
+    await this.emailProvider.accountCreated(emailTo, token)
   }
 }

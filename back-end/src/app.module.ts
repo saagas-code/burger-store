@@ -13,10 +13,6 @@ import { NotificationDatabaseModule } from './modules/notifications/database.mod
 import { NotificationHttpModule } from './modules/notifications/http.module';
 import { IEmailProvider } from './shared/providers/EmailProvider/IEmailProvider';
 import { NodemailerProvider } from './shared/providers/EmailProvider/implements/NodemailerProvider';
-import { BullModule } from '@nestjs/bull';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { SendMailProducerService } from './shared/providers/JobsProvider/Services/sendMailProducerService';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
