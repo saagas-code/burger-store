@@ -3,12 +3,13 @@ import { Injectable } from '@nestjs/common';
 import { IUsersRepository } from '../../database/interface/IUsersRepository';
 import { IUserViewHTTP } from '../../views/UserViewHTTP';
 import {UserView} from '../../views/UserViewHTTP'
+import { IUsersRepositoryCache } from '../../database/interface/IUsersRepositoryCache';
 
 
 @Injectable()
 export class ListUserUseCase {
   constructor(
-    private userRepository: IUsersRepository,
+    private userRepository: IUsersRepositoryCache,
   ) {}
 
   async execute(): Promise<IUserViewHTTP[]> {

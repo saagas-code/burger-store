@@ -1,5 +1,5 @@
 
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { CreateUserUseCase } from './services/createUser/CreateUserUseCase';
 import { CreateUserController } from './services/createUser/CreateUserController';
 import { UserDatabaseModule } from './database.module';
@@ -24,6 +24,7 @@ import { ConfirmUserUseCase } from './services/confirmUser/ConfirmUserUseCase';
 import { CreateConfirmTokenUseCase } from './services/createConfirmToken/CreateConfirmUserUseCase';
 import { CreateConfirmTokenController } from './services/createConfirmToken/CreateConfirmUserController';
 
+
 @Module({
   imports: [
     UserDatabaseModule,
@@ -42,15 +43,6 @@ import { CreateConfirmTokenController } from './services/createConfirmToken/Crea
     JwtModule.register({
       secret: process.env.JWT_CONFIRM_SECRET_KEY || '8821'
     }),
-
-    // JwtModule.register({
-    //   secret: process.env.JWT_SECRET_KEY,
-    //   signOptions: {expiresIn: process.env.JWT_ACCESS_TIME}
-    // }),
-    // JwtModule.register({
-    //   secret: process.env.JWT_REFRESH_SECRET_KEY,
-    //   signOptions: {expiresIn: process.env.JWT_REFRESH_TIME}
-    // })
   ],
   controllers: [
     CreateUserController,
