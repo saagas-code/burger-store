@@ -54,7 +54,5 @@ export class CreateUserUseCase {
     })
 
     await this.emailProvider.accountCreatedJob(user.email, token)
-
-    console.log("Token de confirmacao: WARNING: CRIAR FUNCIONALIDADE")
   }
 }

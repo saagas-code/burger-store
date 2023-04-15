@@ -4,7 +4,6 @@ import { ValidationPipe } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { addAdminUser } from './instances/seeders/PrismaAdminSeed';
 
-
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
@@ -16,7 +15,6 @@ async function bootstrap() {
 
   app.enableCors();
   
-
   await addAdminUser();
   await app.listen(process.env.APP_PORT || 4000);
   

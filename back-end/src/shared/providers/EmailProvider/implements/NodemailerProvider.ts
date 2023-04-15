@@ -18,7 +18,6 @@ export class NodemailerProvider implements IEmailProvider {
   }
 
   async accountCreated(to: string, token: string): Promise<void> {
-    console.log("inicializing")
 
     const link = `${process.env.FRONT_END_URL}/token=${token}`
 

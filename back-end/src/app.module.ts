@@ -55,3 +55,15 @@ import { NodemailerProvider } from './shared/providers/EmailProvider/implements/
   ]
 })
 export class AppModule {}
+  // constructor (
+  //   @InjectQueue("sendMail") private sendMailQueue: Queue
+  // ) {}
+
+  // configure(consumer: MiddlewareBuilder) {
+  //   const  {router} = createBullBoard([
+  //     new BullAdapter(this.sendMailQueue)
+  //   ]);
+  //   consumer.apply(router).forRoutes("/admin/queues")
+  // }
+
+// }
