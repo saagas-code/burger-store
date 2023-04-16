@@ -19,7 +19,7 @@ import { IUsersRepositoryCache } from './database/interface/IUsersRepositoryCach
     PrismaService,
     RedisService,
     {
-      provide: IUsersRepository,
+      provide: 'IUsersRepository',
       useClass: UserRepositoryPrisma
     },
     {
@@ -41,7 +41,7 @@ import { IUsersRepositoryCache } from './database/interface/IUsersRepositoryCach
 
   ],
 
-  exports: [IUsersRepository, IUsersRepositoryCache, IUsersTokenRepository, IStorageProvider, IEmailProvider]
+  exports: ['IUsersRepository', IUsersRepositoryCache, IUsersTokenRepository, IStorageProvider, IEmailProvider]
 })
 
 export class UserDatabaseModule {}

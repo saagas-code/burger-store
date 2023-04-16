@@ -1,20 +1,37 @@
 
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IUsersRepository } from '../../interface/IUsersRepository';
 import { CreateUserDTO } from 'src/modules/users/DTO/CreateUserDTO';
 import { UpdateUserDTO } from 'src/modules/users/DTO/UpdateUserDTO';
 import { User } from 'src/modules/users/entities/User';
 import { RedisService } from 'src/config/redis';
-import { PrismaService } from 'src/instances/prisma.service';
-import { IUsersRepositoryCache } from '../../interface/IUsersRepositoryCache';
-
 
 @Injectable()
-export class UserRepositoryRedis implements IUsersRepositoryCache {
+export class UserRepositoryRedis implements IUsersRepository {
   constructor(
     private readonly redis: RedisService,
+    @Inject('IUsersRepository')
     private readonly userRepositoryPrisma: IUsersRepository
   ) {}
+  async create(data: CreateUserDTO): Promise<User> {
+    const user = await this.userRepositoryPrisma.create(data)
+
+    return user
+  }
+  async update(user_id: string, data: UpdateUserDTO): Promise<void> {
+    await this.userRepositoryPrisma.update(user_id, data)
+  }
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.userRepositoryPrisma.findByEmail(email)
+    return user
+  }
+  async findById(id: string): Promise<User> {
+    const user = await this.userRepositoryPrisma.findById(id)
+    return user
+  }
+  async findByIdAndDelete(id: string): Promise<void> {
+    await this.userRepositoryPrisma.findByIdAndDelete(id)
+  }
   
   async list(): Promise<User[]> {
     const cachedUsers = await this.redis.get("users");

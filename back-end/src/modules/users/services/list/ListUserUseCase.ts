@@ -1,6 +1,5 @@
 
-import { Injectable } from '@nestjs/common';
-import { IUsersRepository } from '../../database/interface/IUsersRepository';
+import { Inject, Injectable } from '@nestjs/common';
 import { IUserViewHTTP } from '../../views/UserViewHTTP';
 import {UserView} from '../../views/UserViewHTTP'
 import { IUsersRepositoryCache } from '../../database/interface/IUsersRepositoryCache';
@@ -9,6 +8,7 @@ import { IUsersRepositoryCache } from '../../database/interface/IUsersRepository
 @Injectable()
 export class ListUserUseCase {
   constructor(
+    @Inject('IUsersRepositoryCache')
     private userRepository: IUsersRepositoryCache,
   ) {}
 
