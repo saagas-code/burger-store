@@ -8,13 +8,14 @@ import { ListMyNotificationController } from './services/listMyNotification/List
 import { ListMyNotificationUseCase } from './services/listMyNotification/ListMyNotificationUseCase';
 import { DeleteNotificationController } from './services/deleteNotification/DeleteNotificationController';
 import { DeleteNotificationUseCase } from './services/deleteNotification/DeleteNotificationUseCase';
+import { UserHttpModule } from '../users/http.module';
 
 
 
 @Module({
   imports: [
     NotificationDatabaseModule,
-    UserDatabaseModule
+    UserDatabaseModule,
     ],
   controllers: [
     CreateNotificationController,

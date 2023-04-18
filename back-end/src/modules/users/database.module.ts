@@ -9,10 +9,8 @@ import { IUsersTokenRepository } from './database/interface/IUsersTokenRepositor
 import { UserTokenRepositoryPrisma } from './database/prisma/repositories/UserTokenRepository';
 import { IEmailProvider } from 'src/shared/providers/EmailProvider/IEmailProvider';
 import { NodemailerProvider } from 'src/shared/providers/EmailProvider/implements/NodemailerProvider';
-import { MailerModule } from '@nestjs-modules/mailer';
 import { UserRepositoryRedis } from './database/prisma/cache/UserRepositoryRedis';
 import { RedisService } from 'src/config/redis';
-import { IUsersRepositoryCache } from './database/interface/IUsersRepositoryCache';
 
 @Module({
   providers: [

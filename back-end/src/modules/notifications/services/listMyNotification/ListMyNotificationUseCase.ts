@@ -16,6 +16,6 @@ export class ListMyNotificationUseCase {
 
     const notifications = await this.notificationRepository.listByUserId(user_id)
 
-    return notifications
+    return notifications as any
   }
 }

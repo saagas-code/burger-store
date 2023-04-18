@@ -15,6 +15,8 @@ export class DeleteNotificationUseCase {
       throw new NotificationNotFound()
     }
 
+    console.log(notification)
+    return
     await this.notificationRepository.delete(notification_id)
 
     return

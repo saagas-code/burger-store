@@ -1,14 +1,14 @@
 import { Controller, UseGuards, Param, Delete } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ensureAdmin } from 'src/shared/guards/ensureAdmin';
 import { DeleteNotificationUseCase } from './DeleteNotificationUseCase';
+import { AccessTokenAuthGuard } from 'src/shared/guards/tokens';
 
 interface IPayload {
   id: string
 }
 
 @Controller("/notifications")
-@UseGuards(AuthGuard("jwt"))
+@UseGuards(AccessTokenAuthGuard)
 export class DeleteNotificationController {
   constructor(
     private deleteNotificationUseCase: DeleteNotificationUseCase

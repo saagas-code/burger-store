@@ -1,4 +1,3 @@
-
 import { Inject, Injectable } from '@nestjs/common';
 import { IUsersRepository } from '../../interface/IUsersRepository';
 import { CreateUserDTO } from 'src/modules/users/DTO/CreateUserDTO';
@@ -46,7 +45,7 @@ export class UserRepositoryRedis implements IUsersRepository {
     await this.userRepositoryPrisma.update(user_id, data)
     await this.redis.del("users")
   }
-  
+
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepositoryPrisma.findByEmail(email)
     await this.redis.del("users")

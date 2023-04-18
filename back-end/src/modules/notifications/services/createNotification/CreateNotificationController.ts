@@ -1,11 +1,11 @@
 import { Post, Body, Controller, UseGuards } from '@nestjs/common';
 import { CreateNotificationDTO } from '../../DTO/CreateNotificationDTO';
-import { AuthGuard } from '@nestjs/passport';
 import { ensureAdmin } from 'src/shared/guards/ensureAdmin';
 import { CreateNotificationUseCase } from './CreateNotificationUseCase';
+import { AccessTokenAuthGuard } from 'src/shared/guards/tokens';
 
 @Controller("/notifications")
-@UseGuards(AuthGuard("jwt"))
+@UseGuards(AccessTokenAuthGuard)
 export class CreateNotificationController {
   constructor(
     private createNotificationUseCase: CreateNotificationUseCase

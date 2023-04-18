@@ -5,6 +5,7 @@ export class Notification {
   title: string;
   message: string;
   read: Date;
+  user_id: string;
   user?: User
   created_at?: Date
 }
