@@ -5,10 +5,12 @@ import { Category } from "src/modules/products/entities/Category";
 import { Product } from "src/modules/products/entities/Product";
 import { ICategoryRepository } from "../../implements/ICategoryRepository";
 import { PrismaService } from 'src/instances/prisma.service';
+import { RedisService } from "src/config/redis";
 
 @Injectable()
 export class CategoryRepositoryPrisma implements ICategoryRepository {
   constructor(
+    private redis: RedisService,
     private prisma: PrismaService
   ) {}
 
