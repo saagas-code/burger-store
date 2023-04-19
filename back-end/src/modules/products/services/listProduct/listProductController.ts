@@ -1,9 +1,8 @@
 import { Controller, Get, Query } from "@nestjs/common";
-import { Category } from "../../entities/Category";
 import { Product } from "../../entities/Product";
 import { ListProductUseCase } from "./listProductUseCase";
 
-interface IRequest {
+interface QueryParams {
   name: string;
   category: string;
 }
@@ -16,7 +15,7 @@ export class ListProductController {
   ) {}
 
   @Get("/")
-  async handle(@Query() query: {name: string, category: string}): Promise<Product[]> {
+  async handle(@Query() query: QueryParams): Promise<Product[]> {
     const result = await this.listProductUseCase.execute(query)
     return result;
   }

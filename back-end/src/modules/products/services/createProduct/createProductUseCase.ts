@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ICategoryRepository } from '../../database/implements/ICategoryRepository';
 import { IProductRepository } from '../../database/implements/IProductRepository';
 import { CreateProductDTO } from '../../DTO/CreateProductDTO';

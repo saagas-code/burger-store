@@ -7,14 +7,19 @@ import { ProductRepositoryPrisma } from './database/prisma/repositories/ProductR
 import { CategoryRepositoryPrisma } from './database/prisma/repositories/CategoryRepositoryPrisma';
 import { RedisService } from 'src/config/redis';
 import { CategoryRepositoryRedis } from './database/prisma/repositories/CategoryRepositoryRedis';
+import { ProductRepositoryRedis } from './database/prisma/repositories/ProductRepositoryRedis';
 
 @Module({
   providers: [
     PrismaService,
     RedisService,
     {
-      provide: IProductRepository,
+      provide: 'IProductRepository',
       useClass: ProductRepositoryPrisma
+    },
+    {
+      provide: IProductRepository,
+      useClass: ProductRepositoryRedis
     },
     {
       provide: 'ICategoryRepository',
@@ -26,7 +31,7 @@ import { CategoryRepositoryRedis } from './database/prisma/repositories/Category
     },
   ],
 
-  exports: [IProductRepository, ICategoryRepository, 'ICategoryRepository']
+  exports: [IProductRepository, ICategoryRepository, 'ICategoryRepository', 'IProductRepository']
 })
 
 export class ProductDatabaseModule {}
