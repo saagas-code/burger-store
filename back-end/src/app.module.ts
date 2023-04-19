@@ -13,6 +13,7 @@ import { NotificationDatabaseModule } from './modules/notifications/database.mod
 import { NotificationHttpModule } from './modules/notifications/http.module';
 import { IEmailProvider } from './shared/providers/EmailProvider/IEmailProvider';
 import { NodemailerProvider } from './shared/providers/EmailProvider/implements/NodemailerProvider';
+import { RedisService } from './config/redis';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { NodemailerProvider } from './shared/providers/EmailProvider/implements/
     NotificationDatabaseModule,
     NotificationHttpModule,
     SharedModule,
+    // RedisService,
     
     // static files
     ServeStaticModule.forRoot({

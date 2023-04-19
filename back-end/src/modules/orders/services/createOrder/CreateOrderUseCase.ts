@@ -10,9 +10,8 @@ export class CreateOrderUseCase {
   ) {}
 
   async execute(data: OrderDTO, user_id: string): Promise<void> {
-    
 
-    const order = await this.orderRepository.createOrder(data, user_id)
+    const order = await this.orderRepository.createOrder(data.orderStatus, user_id)
 
     for(let item in data.items) {  
       await this.orderRepository.createOrderItem(data.items[item], order.id)

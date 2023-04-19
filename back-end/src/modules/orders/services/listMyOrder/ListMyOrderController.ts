@@ -1,11 +1,11 @@
 import { Controller, Get, UseGuards } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
 import { Order } from "../../entities/Order";
 import { ListMyOrderUseCase } from "./ListMyOrderUseCase";
+import { AccessTokenAuthGuard } from "src/shared/guards/tokens";
 
 
 @Controller("/orders/me")
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AccessTokenAuthGuard)
 export class ListMyOrderController {
   constructor(
     private listOrderUseCase: ListMyOrderUseCase

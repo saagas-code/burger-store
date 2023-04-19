@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { INotificationRepository } from "../../interface/INotificationRepository";
 import { Notification } from 'src/modules/notifications/entities/Notification';
-import { NotificationKey, notificationOptions } from "./NotificationRepository";
+import { NotificationKey } from "./NotificationRepository";
 import { RedisService } from 'src/config/redis';
 
 
@@ -41,12 +41,6 @@ export class NotificationRepositoryCache implements INotificationRepository {
     }
 
     return JSON.parse(cachedNotifications)
-  }
-
-
-  async delete(notification_id: any): Promise<void> {
-    await this.notificationRepository.delete(notification_id)
-    await this.redis.del("notifications")
   }
 
   async getById(notification_id: string): Promise<Notification> {
@@ -97,6 +91,11 @@ export class NotificationRepositoryCache implements INotificationRepository {
 
   async updateAllReadByUserId(user_id: string): Promise<void> {
     await this.notificationRepository.updateAllReadByUserId(user_id)
+    await this.redis.del("notifications")
+  }
+
+  async delete(notification_id: any): Promise<void> {
+    await this.notificationRepository.delete(notification_id)
     await this.redis.del("notifications")
   }
 }

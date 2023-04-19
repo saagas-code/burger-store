@@ -2,18 +2,25 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from './../../instances/prisma.service';
 import { IOrderRepository } from './database/interface/IOrdersRepository';
-import { OrderRepositoryPrisma } from './database/prisma/repositories/OrderRepository';
+import { OrderRepositoryPrisma } from './database/prisma/repositories/OrderRepositoryPrisma';
+import { OrderRepositoryRedis } from './database/prisma/repositories/OrderRepositoryRedis';
+import { RedisService } from 'src/config/redis';
 
 @Module({
   providers: [
-    PrismaService, 
+    PrismaService,
+    RedisService,
     {
       provide: IOrderRepository,
+      useClass: OrderRepositoryRedis
+    },
+    {
+      provide: 'IOrderRepository',
       useClass: OrderRepositoryPrisma
     },
   ],
 
-  exports: [IOrderRepository]
+  exports: [IOrderRepository, 'IOrderRepository']
 })
 
 export class OrderDatabaseModule {}

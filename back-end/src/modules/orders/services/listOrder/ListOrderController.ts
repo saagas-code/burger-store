@@ -1,15 +1,12 @@
-import { Body, Controller, Get, UseGuards } from "@nestjs/common";
-import { OrderDTO } from "../../DTO/OrderDTO";
-import { AuthGuard } from "@nestjs/passport";
-import { GetUser } from "src/modules/users/decorators/user.decorator";
-import { IUserViewHTTP } from "src/modules/users/views/UserViewHTTP";
+import {Controller, Get, UseGuards } from "@nestjs/common";
 import { ListOrderUseCase } from "./ListOrderUseCase";
 import { ensureAdmin } from "src/shared/guards/ensureAdmin";
 import { Order } from "../../entities/Order";
+import { AccessTokenAuthGuard } from "src/shared/guards/tokens";
 
 
 @Controller("/orders")
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AccessTokenAuthGuard)
 export class ListOrderController {
   constructor(
     private listOrderUseCase: ListOrderUseCase

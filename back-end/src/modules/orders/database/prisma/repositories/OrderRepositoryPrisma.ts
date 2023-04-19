@@ -5,6 +5,7 @@ import { PrismaService } from "src/instances/prisma.service";
 import { OrderItemDTO } from "src/modules/orders/DTO/OrderItemDTO";
 import { Order } from "src/modules/orders/entities/Order";
 import { OrderItem } from './../../../entities/OrderItem';
+import { ORDER_STATUS } from "@prisma/client";
 
 @Injectable()
 export class OrderRepositoryPrisma implements IOrderRepository {
@@ -77,7 +78,7 @@ export class OrderRepositoryPrisma implements IOrderRepository {
     return orders;
   }
   
-  async createOrder({orderStatus}: OrderDTO, user_id: string): Promise<Order> {
+  async createOrder(orderStatus: ORDER_STATUS, user_id: string): Promise<Order> {
     
     const order = await this.prisma.order.create({
       data: {
