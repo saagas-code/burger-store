@@ -15,7 +15,7 @@ export class UserTokenRepositoryPrisma implements IUsersTokenRepository {
     return tokens
   }
 
-  async findTokenByUserIdAndRefreshToken(token: string, user_id: string): Promise<UserToken> {
+  async findTokenByUserIdAndRefreshToken(token: string): Promise<UserToken> {
     const userToken = await this.prisma.userToken.findFirst({
       where: {
         refresh_token: token,

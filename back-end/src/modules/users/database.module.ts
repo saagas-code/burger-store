@@ -11,6 +11,7 @@ import { IEmailProvider } from 'src/shared/providers/EmailProvider/IEmailProvide
 import { NodemailerProvider } from 'src/shared/providers/EmailProvider/implements/NodemailerProvider';
 import { UserRepositoryRedis } from './database/prisma/cache/UserRepositoryRedis';
 import { RedisService } from 'src/config/redis';
+import { UserTokenRepositoryRedis } from './database/prisma/cache/UserTokenRepositoryRedis';
 
 @Module({
   providers: [
@@ -25,8 +26,12 @@ import { RedisService } from 'src/config/redis';
       useClass: UserRepositoryRedis
     },
     {
-      provide: IUsersTokenRepository,
+      provide: 'IUsersTokenRepository',
       useClass: UserTokenRepositoryPrisma
+    },
+    {
+      provide: IUsersTokenRepository,
+      useClass: UserTokenRepositoryRedis
     },
     {
       provide: IStorageProvider,
@@ -39,7 +44,7 @@ import { RedisService } from 'src/config/redis';
 
   ],
 
-  exports: ['IUsersRepository', IUsersRepository, IUsersTokenRepository, IStorageProvider, IEmailProvider]
+  exports: ['IUsersRepository', IUsersRepository, 'IUsersTokenRepository', IUsersTokenRepository, IStorageProvider, IEmailProvider]
 })
 
 export class UserDatabaseModule {}

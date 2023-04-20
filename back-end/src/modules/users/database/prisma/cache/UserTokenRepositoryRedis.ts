@@ -8,7 +8,7 @@ import { findTokenByRefreshAndUserId } from 'src/modules/users/helpers/findToken
 class UserTokenRepositoryRedis implements IUsersTokenRepository {
   constructor(
     private redis: RedisService,
-    @Inject("IUsersRepository")
+    @Inject("IUsersTokenRepository")
     private userRepositoryTokenPrisma: IUsersTokenRepository
   ) {}
 
@@ -20,6 +20,7 @@ class UserTokenRepositoryRedis implements IUsersTokenRepository {
   async list(): Promise<UserToken[]> {
     const cachedTokens = await this.redis.get("tokens");
 
+    
     if(!cachedTokens) {
       const tokens = await this.userRepositoryTokenPrisma.list()
 
@@ -29,20 +30,20 @@ class UserTokenRepositoryRedis implements IUsersTokenRepository {
         "EX",
         "60" // VALOR EM SEGUNDOS
       )
-
+      console.log("db")
       return tokens;
     }
-    
+    console.log("cache")
     const tokensParsed = JSON.parse(cachedTokens)
     return tokensParsed
   }
 
-  async findTokenByUserIdAndRefreshToken(refresh_token: string, user_id: string): Promise<UserToken> {
+  async findTokenByUserIdAndRefreshToken(refresh_token: string): Promise<UserToken> {
     const cachedTokens = await this.redis.get("tokens");
 
     if(!cachedTokens) {
       const tokens = await this.userRepositoryTokenPrisma.list()
-      const tokensFiltered = findTokenByRefreshAndUserId(tokens, refresh_token, user_id)
+      const tokensFiltered = findTokenByRefreshAndUserId(tokens, refresh_token)
 
       await this.redis.set(
         "tokens",
@@ -55,7 +56,7 @@ class UserTokenRepositoryRedis implements IUsersTokenRepository {
     }
     
     const tokensParsed = JSON.parse(cachedTokens)
-    const tokensFiltered = findTokenByRefreshAndUserId(tokensParsed, refresh_token, user_id)
+    const tokensFiltered = findTokenByRefreshAndUserId(tokensParsed, refresh_token)
     return tokensFiltered
   }
   

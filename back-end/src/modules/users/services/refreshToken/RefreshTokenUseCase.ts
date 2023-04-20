@@ -22,8 +22,9 @@ export class RefreshTokenUseCase {
   async execute(token: string, user_id: string): Promise<IResponse> {
 
     const userToken = await this.userTokenRepository.findTokenByUserIdAndRefreshToken(
-      token, user_id
+      token
     )
+
 
     if(!userToken) {
       throw new RefreshTokenInvalid()
