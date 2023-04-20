@@ -3,6 +3,8 @@ import { INotificationRepository } from "../../interface/INotificationRepository
 import { Notification } from 'src/modules/notifications/entities/Notification';
 import { NotificationKey } from "./NotificationRepository";
 import { RedisService } from 'src/config/redis';
+import { findNotificationById } from "src/modules/notifications/helpers/findNotificationById";
+import { listNotificationByUserId } from "src/modules/notifications/helpers/listNotificationByUserId";
 
 
 @Injectable()
@@ -48,7 +50,7 @@ export class NotificationRepositoryCache implements INotificationRepository {
 
     if(!cachedNotifications) {
       const notifications = await this.notificationRepository.list()
-      const notificationFiltered = notifications.find((ntf) => ntf.id === notification_id)
+      const notificationFiltered = findNotificationById(notifications, notification_id)
 
       await this.redis.set(
         "notifications",
@@ -60,7 +62,10 @@ export class NotificationRepositoryCache implements INotificationRepository {
       return notificationFiltered
     }
 
-    return JSON.parse(cachedNotifications)
+    const notificationParsed = JSON.parse(cachedNotifications)
+    const notificationFiltered = findNotificationById(notificationParsed, notification_id)
+    return notificationFiltered
+
   }
 
   async listByUserId(user_id: string): Promise<Notification[]> {
@@ -68,7 +73,7 @@ export class NotificationRepositoryCache implements INotificationRepository {
 
     if(!cachedNotifications) {
       const notifications = await this.notificationRepository.list()
-      const notificationFiltered = notifications.filter((ntf) => ntf.user_id === user_id)
+      const notificationFiltered = listNotificationByUserId(notifications, user_id)
 
       await this.redis.set(
         "notifications",
@@ -80,7 +85,7 @@ export class NotificationRepositoryCache implements INotificationRepository {
     }
     
     const notificationsParsed = JSON.parse(cachedNotifications)
-    const notificationsFiltered = notificationsParsed.filter((ntf: Notification) => ntf.user_id === user_id)
+    const notificationsFiltered = listNotificationByUserId(notificationsParsed, user_id)
     return notificationsFiltered
   }
 
