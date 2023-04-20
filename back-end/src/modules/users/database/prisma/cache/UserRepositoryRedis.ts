@@ -83,6 +83,7 @@ export class UserRepositoryRedis implements IUsersRepository {
         "60" // VALOR EM SEGUNDOS
       )
 
+
       return usersFiltered
     }
 

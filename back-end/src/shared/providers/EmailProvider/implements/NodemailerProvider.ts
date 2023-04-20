@@ -30,10 +30,31 @@ export class NodemailerProvider implements IEmailProvider {
     await this.transporter.sendMail({
       from: 'burger-store@enterprise.com',
       to: to,
-      subject: 'Hi',
+      subject: 'Criação de conta',
       text: 'Hello World',
       html: html
     })
+  }
+
+  async sendConfirmToken(emailTo: string, token: string): Promise<void> {
+    
+    const link = `${process.env.FRONT_END_URL}/token=${token}`
+
+    const html = `
+      <h1 align="center">Token de confirmação gerado com sucesso!</h1> </br>
+      <h2 align="center">Clique no link abaixo para confirmar sua conta. !</h2> </br>
+      <a href="${link}/token=${link}">${link}</a>
+    `
+
+    await this.transporter.sendMail({
+      from: 'burger-store@enterprise.com',
+      to: emailTo,
+      subject: 'Confirmação de conta',
+      text: 'Hello World',
+      html: html
+    })
+
+
   }
   
 }

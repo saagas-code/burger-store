@@ -13,10 +13,9 @@ export class ConfirmUserUseCase {
   ) {}
 
   async execute(user_id: string): Promise<void> {
-    console.log("TESTEEEEEEEEEEEEEEEEE")
-    console.log("TESTE2", user_id)
     
     const user = await this.userRepository.findById(user_id);
+
     if(!user) {
       throw new UserNotExists();
     }

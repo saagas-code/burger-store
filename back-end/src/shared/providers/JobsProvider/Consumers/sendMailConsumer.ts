@@ -14,8 +14,14 @@ export class SendMailConsumer {
   ) {}
 
   @Process("accountCreated")
-  async sendMail(job: Job<IPayload>) {
+  async accountCreated(job: Job<IPayload>) {
     const {emailTo, token} = job.data;
     await this.emailProvider.accountCreated(emailTo, token)
+  }
+
+  @Process("sendConfirmToken")
+  async sendConfirmToken(job: Job<IPayload>) {
+    const {emailTo, token} = job.data;
+    await this.emailProvider.sendConfirmToken(emailTo, token)
   }
 }

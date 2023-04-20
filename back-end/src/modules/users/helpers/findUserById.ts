@@ -1,7 +1,7 @@
 import { User } from "../entities/User"
 
-const findUserById = (users: User[], id: string) => {
-  const result = users.find((user) => user.email === id)
+const findUserById = (users: User[], id: string): User => {
+  const result = users.find((user) => user.id === id)
   return result
 }
 

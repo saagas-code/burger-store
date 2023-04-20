@@ -7,6 +7,7 @@ import { GetUser } from '../../decorators/user.decorator';
 
 interface IPayload {
   user_id: string
+  admin: boolean
 }
 
 @Controller("/users")
@@ -17,7 +18,7 @@ export class ConfirmUserController {
 
   @Get("/verify")
   @UseGuards(ConfirmAccountTokenAuthGuard)
-  async handle(@GetUser() {user_id}: IPayload): Promise<void> {
-    await this.confirmUserUseCase.execute(user_id)
+  async handle(@GetUser() currentUser: IPayload): Promise<void> {
+    await this.confirmUserUseCase.execute(currentUser.user_id)
   }
 }

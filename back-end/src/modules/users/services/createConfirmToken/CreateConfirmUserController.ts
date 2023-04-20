@@ -6,6 +6,11 @@ import { AccessTokenAuthGuard } from 'src/shared/guards/tokens';
 import { GetUser } from '../../decorators/user.decorator';
 import { CreateConfirmTokenUseCase } from './CreateConfirmUserUseCase';
 
+interface IPayload {
+  user_id: string
+  admin: boolean
+}
+
 @Controller("/users")
 export class CreateConfirmTokenController {
   constructor(
@@ -14,7 +19,7 @@ export class CreateConfirmTokenController {
 
   @Post("/verify")
   @UseGuards(AccessTokenAuthGuard)
-  async handle(@GetUser() user_id: string): Promise<void> {
+  async handle(@GetUser() {user_id}: IPayload): Promise<void> {
     await this.CreateConfirmTokenUseCase.execute(user_id)
   }
 }
