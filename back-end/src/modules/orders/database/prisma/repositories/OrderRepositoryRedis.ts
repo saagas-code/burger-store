@@ -4,6 +4,8 @@ import { OrderItemDTO } from "src/modules/orders/DTO/OrderItemDTO";
 import { Order } from "src/modules/orders/entities/Order";
 import { RedisService } from "src/config/redis";
 import { ORDER_STATUS } from "@prisma/client";
+import { listOrdersByUserId } from "src/modules/orders/helpers/listOrdersByUserId";
+import { findOrderById } from "src/modules/orders/helpers/findOrderById";
 
 @Injectable()
 export class OrderRepositoryRedis implements IOrderRepository {
@@ -48,7 +50,7 @@ export class OrderRepositoryRedis implements IOrderRepository {
     
     if(!cachedOrders) {
       const orders = await this.orderRepository.listMyOrders(user_id)
-      const ordersFiltered = orders.filter((order) => order.user_id === user_id)
+      const ordersFiltered = listOrdersByUserId(orders, user_id)
 
       await this.redis.set(
         "orders",
@@ -60,7 +62,7 @@ export class OrderRepositoryRedis implements IOrderRepository {
     }
 
     const ordersParsed = JSON.parse(cachedOrders);
-    const ordersFiltered = ordersParsed.filter((order: Order) => order.user_id === user_id)
+    const ordersFiltered = listOrdersByUserId(ordersParsed, user_id)
     return ordersFiltered
   }
 
@@ -69,7 +71,7 @@ export class OrderRepositoryRedis implements IOrderRepository {
 
     if(!cachedOrders) {
       const orders = await this.orderRepository.listOrders()
-      const ordersFiltered = orders.find((order) => order.id === order_id)
+      const ordersFiltered = findOrderById(orders, order_id)
 
       await this.redis.set(
         "orders",
@@ -81,7 +83,7 @@ export class OrderRepositoryRedis implements IOrderRepository {
     }
 
     const ordersParsed = JSON.parse(cachedOrders);
-    const orderFiltered = ordersParsed.find((order: Order) => order.id === order_id)
+    const orderFiltered = findOrderById(ordersParsed, order_id)
     return orderFiltered
   }
 
