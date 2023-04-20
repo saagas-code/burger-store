@@ -9,6 +9,22 @@ export class UserTokenRepositoryPrisma implements IUsersTokenRepository {
   constructor(
     private prisma: PrismaService
   ) {}
+
+  async list(): Promise<UserToken[]> {
+    const tokens = await this.prisma.userToken.findMany()
+    return tokens
+  }
+
+  async findTokenByUserIdAndRefreshToken(token: string, user_id: string): Promise<UserToken> {
+    const userToken = await this.prisma.userToken.findFirst({
+      where: {
+        refresh_token: token,
+      }
+    })
+
+    return userToken
+  }
+
   async deleteById(token_id: any): Promise<void> {
     await this.prisma.userToken.delete({
       where: {
@@ -22,15 +38,4 @@ export class UserTokenRepositoryPrisma implements IUsersTokenRepository {
       data: data
     })
   }
-
-  async findTokenByUserIdAndRefreshToken(token: string, user_id: string): Promise<UserToken> {
-    const userToken = await this.prisma.userToken.findFirst({
-      where: {
-        refresh_token: token,
-      }
-    })
-
-    return userToken
-  }
-  
 }
