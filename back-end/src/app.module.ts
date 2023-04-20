@@ -14,6 +14,7 @@ import { NotificationHttpModule } from './modules/notifications/http.module';
 import { IEmailProvider } from './shared/providers/EmailProvider/IEmailProvider';
 import { NodemailerProvider } from './shared/providers/EmailProvider/implements/NodemailerProvider';
 import { RedisService } from './config/redis';
+import { AmazonSESProvider } from './shared/providers/EmailProvider/implements/AmazonSESProvider';
 
 @Module({
   imports: [
@@ -50,10 +51,10 @@ import { RedisService } from './config/redis';
         return prisma;
       }
     },
-    {
-      provide: IEmailProvider,
-      useClass: NodemailerProvider
-    }
+    // {
+    //   provide: IEmailProvider,
+    //   useClass: AmazonSESProvider
+    // }
   ]
 })
 export class AppModule {}

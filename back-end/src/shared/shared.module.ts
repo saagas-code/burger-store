@@ -8,6 +8,8 @@ import { IJobMailProvider } from './providers/JobsProvider/IJobMailProvider';
 import { MailProvider } from './providers/JobsProvider/implements/MailProvider';
 import { SendMailConsumer } from './providers/JobsProvider/Consumers/sendMailConsumer';
 import { UserDatabaseModule } from 'src/modules/users/database.module';
+import { IEmailProvider } from './providers/EmailProvider/IEmailProvider';
+import { AmazonSESProvider } from './providers/EmailProvider/implements/AmazonSESProvider';
 
 @Module({
   imports: [
@@ -39,10 +41,15 @@ import { UserDatabaseModule } from 'src/modules/users/database.module';
     {
       provide: IJobMailProvider,
       useClass: MailProvider
-    }
+    },
+    {
+      provide: IEmailProvider,
+      useClass: AmazonSESProvider
+    },
+
 
   ],
-  exports: [IDateProvider, IJobMailProvider, MailProvider]
+  exports: [IDateProvider, IJobMailProvider, MailProvider, IEmailProvider]
   
 })
 

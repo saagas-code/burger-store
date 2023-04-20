@@ -24,7 +24,6 @@ export class NodemailerProvider implements IEmailProvider {
     const html = `
       <h1 align="center">Conta criada com sucesso !</h1> </br>
       <h2 align="center">Agora para você ter acesso a todas funcionalidades do sistem você precisará confirmar sua conta, Clique <a>AQUI</a> !</h2> </br>
-      token: ${token} </br>
       <a href="${link}">${link}</a>
     `
 
