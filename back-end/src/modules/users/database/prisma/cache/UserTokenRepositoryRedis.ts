@@ -1,47 +1,70 @@
-// import { Inject } from '@nestjs/common';
-// import { RedisService } from 'src/config/redis';
-// import { IUsersTokenRepository } from '../../interface/IUsersTokenRepository';
-// import { UserToken } from 'src/modules/users/entities/UserToken';
+import { Inject } from '@nestjs/common';
+import { RedisService } from 'src/config/redis';
+import { IUsersTokenRepository } from '../../interface/IUsersTokenRepository';
+import { UserToken } from 'src/modules/users/entities/UserToken';
+import { findTokenByRefreshAndUserId } from 'src/modules/users/helpers/findTokenByRefreshAndUserId';
 
 
-// class UserTokenRepositoryRedis implements IUsersTokenRepository {
-//   constructor(
-//     private redis: RedisService,
-//     @Inject("IUsersRepository")
-//     private userRepositoryTokenPrisma: IUsersTokenRepository
-//   ) {}
+class UserTokenRepositoryRedis implements IUsersTokenRepository {
+  constructor(
+    private redis: RedisService,
+    @Inject("IUsersRepository")
+    private userRepositoryTokenPrisma: IUsersTokenRepository
+  ) {}
 
-//   async createUserToken(data: any): Promise<void> {
-//     await this.userRepositoryTokenPrisma.createUserToken(data)
-//     await this.redis.del("tokens")
-//   }
+  async createUserToken(data: any): Promise<void> {
+    await this.userRepositoryTokenPrisma.createUserToken(data)
+    await this.redis.del("tokens")
+  }
 
-//   async findTokenByUserIdAndRefreshToken(refresh_token: string, user_id: string): Promise<UserToken> {
-//     const cachedTokens = await this.redis.get("tokens");
+  async list(): Promise<UserToken[]> {
+    const cachedTokens = await this.redis.get("tokens");
 
-//     if(!cachedTokens) {
-//       const users = await this.userRepositoryTokenPrisma.
+    if(!cachedTokens) {
+      const tokens = await this.userRepositoryTokenPrisma.list()
 
-//       await this.redis.set(
-//         "users",
-//         JSON.stringify(users),
-//         "EX",
-//         "60" // VALOR EM SEGUNDOS
-//       )
-//       console.log("\x1b[3m%s\x1b[0m', 'From Database");
+      await this.redis.set(
+        "tokens",
+        JSON.stringify(tokens),
+        "EX",
+        "60" // VALOR EM SEGUNDOS
+      )
 
-//       return users
-//     }
-//   }
+      return tokens;
+    }
+    
+    const tokensParsed = JSON.parse(cachedTokens)
+    return tokensParsed
+  }
+
+  async findTokenByUserIdAndRefreshToken(refresh_token: string, user_id: string): Promise<UserToken> {
+    const cachedTokens = await this.redis.get("tokens");
+
+    if(!cachedTokens) {
+      const tokens = await this.userRepositoryTokenPrisma.list()
+      const tokensFiltered = findTokenByRefreshAndUserId(tokens, refresh_token, user_id)
+
+      await this.redis.set(
+        "tokens",
+        JSON.stringify(tokens),
+        "EX",
+        "60" // VALOR EM SEGUNDOS
+      )
+
+      return tokensFiltered;
+    }
+    
+    const tokensParsed = JSON.parse(cachedTokens)
+    const tokensFiltered = findTokenByRefreshAndUserId(tokensParsed, refresh_token, user_id)
+    return tokensFiltered
+  }
   
-//   async deleteById(token_id: any): Promise<void> {
-//     await this.userRepositoryTokenPrisma.deleteById(token_id)
-//     await this.redis.del("tokens")
+  async deleteById(token_id: any): Promise<void> {
+    await this.userRepositoryTokenPrisma.deleteById(token_id)
+    await this.redis.del("tokens")
 
-//   }
+  }
 
-  
+}
 
-// }
-
-// export {UserTokenRepositoryRedis}
+export {UserTokenRepositoryRedis}
