@@ -24,4 +24,10 @@ export class SendMailConsumer {
     const {emailTo, token} = job.data;
     await this.emailProvider.sendConfirmToken(emailTo, token)
   }
+
+  @Process("accountVerified")
+  async accountVerified(job: Job<IPayload>) {
+    const {emailTo} = job.data;
+    await this.emailProvider.accountVerified(emailTo)
+  }
 }

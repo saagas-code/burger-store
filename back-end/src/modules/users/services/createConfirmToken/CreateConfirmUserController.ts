@@ -19,7 +19,8 @@ export class CreateConfirmTokenController {
 
   @Post("/verify")
   @UseGuards(AccessTokenAuthGuard)
-  async handle(@GetUser() {user_id}: IPayload): Promise<void> {
-    await this.CreateConfirmTokenUseCase.execute(user_id)
+  async handle(@GetUser() {user_id}: IPayload): Promise<string> {
+    const token = await this.CreateConfirmTokenUseCase.execute(user_id)
+    return token
   }
 }

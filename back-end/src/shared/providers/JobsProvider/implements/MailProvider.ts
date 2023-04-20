@@ -16,5 +16,9 @@ export class MailProvider implements IJobMailProvider {
   async sendConfirmTokenJob(emailTo: string, token: string): Promise<void> {
     await this.queue.add("sendConfirmToken", {emailTo, token})
   }
+
+  async accountVerified(emailTo: string): Promise<void> {
+    await this.queue.add("sendConfirmToken", {emailTo})
+  }
   
 }

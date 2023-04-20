@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { IUsersRepository } from '../../database/interface/IUsersRepository';
 import { JwtService } from '@nestjs/jwt';
 import { IJobMailProvider } from 'src/shared/providers/JobsProvider/IJobMailProvider';
+import { UserAlreadyVerified } from '../../errors/UserAlreadyVerified';
 
 @Injectable()
 export class CreateConfirmTokenUseCase {
@@ -12,9 +13,13 @@ export class CreateConfirmTokenUseCase {
     private jwt: JwtService,
   ) {}
 
-  async execute(user_id: string): Promise<void> {
+  async execute(user_id: string): Promise<string> {
 
     const user = await this.userRepository.findById(user_id)
+
+    if(user.verified_at === null) {
+      throw new UserAlreadyVerified()
+    }
 
     const confirmToken = this.jwt.sign({
       user_id
@@ -23,10 +28,9 @@ export class CreateConfirmTokenUseCase {
       expiresIn: process.env.JWT_CONFIRM_TIME
     })
 
-    console.log('confirm Token', confirmToken)
-    //FAZER lógica para enviar email retornando o token
-
     await this.emailProvider.sendConfirmTokenJob(user.email, confirmToken)
+    return confirmToken
+
   
   }
 }
