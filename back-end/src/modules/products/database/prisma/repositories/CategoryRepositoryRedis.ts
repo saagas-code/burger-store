@@ -4,6 +4,8 @@ import { Inject, Injectable } from "@nestjs/common";
 import { Category } from "src/modules/products/entities/Category";
 import { ICategoryRepository } from "../../implements/ICategoryRepository";
 import { RedisService } from "src/config/redis";
+import { findCategoryByName } from "src/modules/products/helpers/findCategoryByName";
+import { findCategoryById } from "src/modules/products/helpers/findCategoryById";
 
 @Injectable()
 export class CategoryRepositoryRedis implements ICategoryRepository {
@@ -40,7 +42,7 @@ export class CategoryRepositoryRedis implements ICategoryRepository {
 
     if(!cachedCategories) {
       const categories = await this.categoryRepositoryPrisma.list()
-      const categoryFiltered = categories.find((ctg) => ctg.name === name)
+      const categoryFiltered = findCategoryByName(categories, name)
 
       await this.redis.set(
         "categories",
@@ -52,7 +54,7 @@ export class CategoryRepositoryRedis implements ICategoryRepository {
     }
 
     const categoryParsed = JSON.parse(cachedCategories)
-    const categoryFiltered = categoryParsed.find((ctg) => ctg.name === name)
+    const categoryFiltered = findCategoryByName(categoryParsed, name)
     return categoryFiltered
   }
 
@@ -61,7 +63,7 @@ export class CategoryRepositoryRedis implements ICategoryRepository {
 
     if(!cachedCategories) {
       const categories = await this.categoryRepositoryPrisma.list()
-      const categoryFiltered = categories.find((ctg) => ctg.id === id)
+      const categoryFiltered = findCategoryById(categories, id)
 
       await this.redis.set(
         "categories",
@@ -73,7 +75,7 @@ export class CategoryRepositoryRedis implements ICategoryRepository {
     }
 
     const categoryParsed = JSON.parse(cachedCategories)
-    const categoryFiltered = categoryParsed.find((ctg: Category) => ctg.id === id)
+    const categoryFiltered = findCategoryById(categoryParsed, id)
     return categoryFiltered
   }
 
