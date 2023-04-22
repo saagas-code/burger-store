@@ -3,7 +3,7 @@ import * as nodemailer from 'nodemailer';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class NodemailerProvider implements IEmailProvider {
+export class MailTrapProvider implements IEmailProvider {
   private transporter: nodemailer.Transporter;
 
   constructor() {

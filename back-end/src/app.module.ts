@@ -11,10 +11,6 @@ import { OrderDatabaseModule } from './modules/orders/database.module';
 import { OrderHttpModule } from './modules/orders/http.module';
 import { NotificationDatabaseModule } from './modules/notifications/database.module';
 import { NotificationHttpModule } from './modules/notifications/http.module';
-import { IEmailProvider } from './shared/providers/EmailProvider/IEmailProvider';
-import { NodemailerProvider } from './shared/providers/EmailProvider/implements/NodemailerProvider';
-import { RedisService } from './config/redis';
-import { AmazonSESProvider } from './shared/providers/EmailProvider/implements/AmazonSESProvider';
 
 @Module({
   imports: [

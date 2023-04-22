@@ -8,10 +8,10 @@ import { S3StorageProvider } from 'src/shared/providers/StorageProvider/implemen
 import { IUsersTokenRepository } from './database/interface/IUsersTokenRepository';
 import { UserTokenRepositoryPrisma } from './database/prisma/repositories/UserTokenRepository';
 import { IEmailProvider } from 'src/shared/providers/EmailProvider/IEmailProvider';
-import { NodemailerProvider } from 'src/shared/providers/EmailProvider/implements/NodemailerProvider';
 import { UserRepositoryRedis } from './database/prisma/cache/UserRepositoryRedis';
 import { RedisService } from 'src/config/redis';
 import { UserTokenRepositoryRedis } from './database/prisma/cache/UserTokenRepositoryRedis';
+import { MailTrapProvider } from 'src/shared/providers/EmailProvider/implements/MailTrapProvider';
 
 @Module({
   providers: [
@@ -39,7 +39,7 @@ import { UserTokenRepositoryRedis } from './database/prisma/cache/UserTokenRepos
     },
     {
       provide: IEmailProvider,
-      useClass: NodemailerProvider
+      useClass: MailTrapProvider
     }
 
   ],

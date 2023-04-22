@@ -9,8 +9,7 @@ import { MailProvider } from './providers/JobsProvider/implements/MailProvider';
 import { SendMailConsumer } from './providers/JobsProvider/Consumers/sendMailConsumer';
 import { UserDatabaseModule } from 'src/modules/users/database.module';
 import { IEmailProvider } from './providers/EmailProvider/IEmailProvider';
-import { AmazonSESProvider } from './providers/EmailProvider/implements/AmazonSESProvider';
-import { NodemailerProvider } from './providers/EmailProvider/implements/NodemailerProvider';
+import { MailTrapProvider } from './providers/EmailProvider/implements/MailTrapProvider';
 
 @Module({
   imports: [
@@ -45,7 +44,7 @@ import { NodemailerProvider } from './providers/EmailProvider/implements/Nodemai
     },
     {
       provide: IEmailProvider,
-      useClass: NodemailerProvider
+      useClass: MailTrapProvider
     },
 
 
