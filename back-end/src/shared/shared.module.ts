@@ -10,6 +10,7 @@ import { SendMailConsumer } from './providers/JobsProvider/Consumers/sendMailCon
 import { UserDatabaseModule } from 'src/modules/users/database.module';
 import { IEmailProvider } from './providers/EmailProvider/IEmailProvider';
 import { AmazonSESProvider } from './providers/EmailProvider/implements/AmazonSESProvider';
+import { NodemailerProvider } from './providers/EmailProvider/implements/NodemailerProvider';
 
 @Module({
   imports: [
@@ -44,7 +45,7 @@ import { AmazonSESProvider } from './providers/EmailProvider/implements/AmazonSE
     },
     {
       provide: IEmailProvider,
-      useClass: AmazonSESProvider
+      useClass: NodemailerProvider
     },
 
 

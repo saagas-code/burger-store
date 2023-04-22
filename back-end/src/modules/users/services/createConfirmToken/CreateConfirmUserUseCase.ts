@@ -17,7 +17,7 @@ export class CreateConfirmTokenUseCase {
 
     const user = await this.userRepository.findById(user_id)
 
-    if(user.verified_at === null) {
+    if(!user.verified_at === null) {
       throw new UserAlreadyVerified()
     }
 
