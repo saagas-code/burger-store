@@ -10,6 +10,8 @@ import { SendMailConsumer } from './providers/JobsProvider/Consumers/sendMailCon
 import { UserDatabaseModule } from 'src/modules/users/database.module';
 import { IEmailProvider } from './providers/EmailProvider/IEmailProvider';
 import { MailTrapProvider } from './providers/EmailProvider/implements/MailTrapProvider';
+import { EmailProvider } from './providers/EmailProvider/EmailProvider';
+import { AmazonSESProvider } from './providers/EmailProvider/implements/AmazonSESProvider';
 
 @Module({
   imports: [
@@ -44,12 +46,20 @@ import { MailTrapProvider } from './providers/EmailProvider/implements/MailTrapP
     },
     {
       provide: IEmailProvider,
+      useClass: EmailProvider
+    },
+    {
+      provide: 'MailTrapProvider',
       useClass: MailTrapProvider
+    },
+    {
+      provide: 'AmazonSESProvider', 
+      useClass: AmazonSESProvider
     },
 
 
   ],
-  exports: [IDateProvider, IJobMailProvider, MailProvider, IEmailProvider]
+  exports: [IDateProvider, IJobMailProvider, MailProvider, IEmailProvider, 'MailTrapProvider', 'AmazonSESProvider']
   
 })
 
